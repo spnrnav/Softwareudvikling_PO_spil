@@ -9,9 +9,12 @@ public:
     Character();
     Character(std::string);
     std::string getName();
+    bool collectionLimit();
     void addMonster(Entity);
+    void replaceMonster(Entity, int);
     ~Character();
 private:
+    int inputIdx;
     std::string name;
     std::vector<Entity> collection;
 };
