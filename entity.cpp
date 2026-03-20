@@ -20,4 +20,8 @@ int Entity::getDmg(){
     return dmg;
 }
 
+void Entity::dealDmg(int damage){
+    hp -= damage;
+}
+
 Entity::~Entity(){}

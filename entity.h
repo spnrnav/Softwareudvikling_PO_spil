@@ -10,6 +10,7 @@ public:
     std::string getName();
     int getHP();
     int getDmg();
+    void dealDmg(int);
     ~Entity();
 private:
     std::string name;
