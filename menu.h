@@ -11,7 +11,7 @@ public:
     void getStrInput();
     void main();
     void sub();
-    void combat(Entity);
+    void combat();
     ~Menu();
 private:
     std::string lineSeperator = "-----------------------------\n";

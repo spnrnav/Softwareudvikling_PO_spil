@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "EnemyList.h"
+#include "combat.h"
 
 Menu::Menu() {}
 
@@ -29,6 +30,7 @@ void Menu::main(){
             getStrInput();
             Character player(inputStr);
             std::cout << "Character \"" + inputStr + "\" created\n";
+            sub();
         }
         else if (inputInt == 2){ // Load Character (implement later)
             std::cout << "action2\n";
@@ -52,7 +54,7 @@ void Menu::sub(){
         getIntInput();
 
         if (inputInt == 1){ // Fight monster
-
+            combat();
         }
         else if (inputInt == 2){ // Quit sub menu
             menuActive = false;
@@ -63,7 +65,7 @@ void Menu::sub(){
     }
 }
 
-void Menu::combat(Entity enemy){
+void Menu::combat(){
     bool menuActive = true;
     while (menuActive){
         std::cout << "---------Combat menu---------\n"
@@ -80,7 +82,8 @@ void Menu::combat(Entity enemy){
         getIntInput();
 
         if ((inputInt < 9) && (inputInt > 0)){ // Initiate combat with selected monster
-            //combatClass
+            Combat combat(enemyList[inputInt]);
+            combat.battle();
         }
         else if (inputInt == 9){ // Quit combat menu
             menuActive = false;
