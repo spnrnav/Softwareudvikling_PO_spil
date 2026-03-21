@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(SU_PO_spil main.cpp
     entity.h entity.cpp
     character.h character.cpp
-    menu.h menu.cpp)
+    menu.h menu.cpp
+    EnemyList.h)
 
 include(GNUInstallDirs)
 install(TARGETS SU_PO_spil
