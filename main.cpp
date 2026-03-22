@@ -2,6 +2,6 @@
 
 int main(){
     Menu game;
-    game.sub();
+    game.main();
     return 0;
 }

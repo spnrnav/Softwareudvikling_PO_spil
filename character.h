@@ -12,11 +12,11 @@ public:
     bool collectionLimit();
     void addMonster(Entity);
     void replaceMonster(Entity, int);
+    std::vector<Entity> collection;
     ~Character();
 private:
     int inputIdx;
     std::string name;
-    std::vector<Entity> collection;
 };
 
 #endif // CHARACTER_H

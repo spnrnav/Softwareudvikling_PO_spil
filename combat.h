@@ -9,6 +9,8 @@ public:
     Combat();
     Combat(Entity);
     int generateRandomInt(int=100,int=0);
+    void enemyTurn();
+    void allyTurn();
     void battle();
     ~Combat();
 private:

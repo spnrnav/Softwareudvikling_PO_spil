@@ -1,13 +1,14 @@
 #include "character.h"
 #include <iostream>
+#include "enemyList.h"
 
 Character::Character() {}
 
 Character::Character(std::string characterName){
     name = characterName;
-    Entity hest("hest",4,1);
-    addMonster(hest);
-    addMonster(hest);
+    EnemyList monster;
+    addMonster(monster.list[0]);
+    addMonster(monster.list[0]);
 }
 
 

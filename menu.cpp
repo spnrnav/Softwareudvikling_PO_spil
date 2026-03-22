@@ -1,6 +1,6 @@
 #include "menu.h"
-#include "EnemyList.h"
-#include "combat.h"
+//#include "combat.h"
+#include "enemylist.h"
 
 Menu::Menu() {}
 
@@ -30,7 +30,7 @@ void Menu::main(){
             getStrInput();
             Character player(inputStr);
             std::cout << "Character \"" + inputStr + "\" created\n";
-            sub();
+            sub(player);
         }
         else if (inputInt == 2){ // Load Character (implement later)
             std::cout << "action2\n";
@@ -44,7 +44,7 @@ void Menu::main(){
     }
 }
 
-void Menu::sub(){
+void Menu::sub(Character& character){
     bool menuActive = true;
     while (menuActive){
         std::cout << "--------Adventure menu-------\n"
@@ -54,7 +54,14 @@ void Menu::sub(){
         getIntInput();
 
         if (inputInt == 1){ // Fight monster
-            combat();
+            combat(character);
+            for (int i = 0; i < character.collection.size(); i++){
+                if (character.collection[i].getHP() <= 0){
+                    std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
+                    menuActive = false;
+                    break;
+                }
+            }
         }
         else if (inputInt == 2){ // Quit sub menu
             menuActive = false;
@@ -65,7 +72,7 @@ void Menu::sub(){
     }
 }
 
-void Menu::combat(){
+void Menu::combat(Character& player){
     bool menuActive = true;
     while (menuActive){
         std::cout << "---------Combat menu---------\n"
@@ -75,21 +82,92 @@ void Menu::combat(){
                   << "4: Stronger Goblin\n"
                   << "5: Strongest Goblin\n"
                   << "6: Abe Kongen\n"
-                  << "7: Enhjørning\n"
+                  << "7: Enhjoerning\n"
                   << "8: Drage\n"
                   << "9: Quit combat\n" + lineSeperator
                   << "Choose a monster to fight: ";
         getIntInput();
 
-        if ((inputInt < 9) && (inputInt > 0)){ // Initiate combat with selected monster
-            Combat combat(enemyList[inputInt]);
-            combat.battle();
+        if ((inputInt < 9) and (inputInt > 0)){ // Initiate combat with selected monster
+            EnemyList monster;
+            //Combat combat(enemyList[inputInt],player);
+            //combat.battle();
+            Entity enemy = monster.list[inputInt-1];
+            std::cout << enemy.getName() << " chosen\n";
+
+            for (int i = 0; i < player.collection.size(); i++){ // Run through all player monsters
+                while ((player.collection[i].getHP() > 0) and (enemy.getHP() > 0)){ // check health of ally and enemy
+                    std::cout << "ally " << i << std::endl;
+                    int placeHolder = 45; // Random number (actual function in combat class)
+                    if (placeHolder > 50){ // turn priority (ally first)
+
+                        enemy.dealDmg(player.collection[i].getDmg()); // deal damage to enemy
+                        if (enemy.getHP() <= 0){ // Enemy HP<0
+                            std::cout << "Enemy " <<  enemy.getName() << " defeated\n";
+                            std::cout << "Capture enemy? (y/n): ";
+                            getStrInput();
+                            if (inputStr == "y"){
+                                if (player.collectionLimit() == false){
+                                    for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                                        std::cout << j+1 << ": " << player.collection[j].getName() << std::endl;
+                                    }
+                                }
+                                player.addMonster(monster.list[inputInt-1]); // run addMonster() function
+                            }
+                            break;
+                        }
+
+                        player.collection[i].dealDmg(enemy.getDmg()); // deal damage to ally
+                        if (player.collection[i].getHP() <= 0){ // ally HP<0
+                            std::cout << "Battle lost\n";
+                            break;
+                        }
+                    }
+                    else{ // turn priority (enemy first)
+                        player.collection[i].dealDmg(enemy.getDmg()); // deal damage to ally
+                        if (player.collection[i].getHP() <= 0){ // check enemy HP
+                            std::cout << "Battle lost\n";
+                            break;
+                        }
+                        std::cout << player.collection[i].getHP() << " " << enemy.getHP();
+                        std::cout << "\nstage 1 cleared" << std::endl;
+
+                        enemy.dealDmg(player.collection[i].getDmg()); // deal damage to enemy
+                        if (enemy.getHP() <= 0){ // Enemy HP<0
+                            std::cout << "Enemy " <<  enemy.getName() << " defeated\n";
+                            std::cout << "Capture enemy? (y/n): ";
+                            getStrInput();
+                            if (inputStr == "y"){
+                                if (player.collectionLimit() == false){
+                                    for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                                        std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getHP() << ", Dmg: " << player.collection[j].getDmg() << ")" << std::endl;
+                                    }
+                                }
+                                player.addMonster(monster.list[inputInt-1]); // run addMonster() function
+                            }
+                            break;
+                        }
+                        std::cout << "stage 2 cleared" << std::endl;
+                    }
+                }
+                if (enemy.getHP() <= 0){
+                    break;
+                }
+                std::cout << player.collection[i].getName() << i << std::endl;
+            }
         }
         else if (inputInt == 9){ // Quit combat menu
             menuActive = false;
         }
         else{
             std::cout << "Invallid input\n";
+        }
+        for (int i = 0; i < player.collection.size(); i++){
+            if (player.collection[i].getHP() <= 0){
+                std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
+                menuActive = false;
+                break;
+            }
         }
     }
 }

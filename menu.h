@@ -2,6 +2,7 @@
 #define MENU_H
 #include "character.h"
 #include <iostream>
+//#include "enemylist.h"
 
 class Menu
 {
@@ -10,8 +11,8 @@ public:
     void getIntInput();
     void getStrInput();
     void main();
-    void sub();
-    void combat();
+    void sub(Character&);
+    void combat(Character&);
     ~Menu();
 private:
     std::string lineSeperator = "-----------------------------\n";
