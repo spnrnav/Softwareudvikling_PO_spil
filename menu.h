@@ -18,7 +18,7 @@ private:
     std::string lineSeperator = "-----------------------------\n";
     int inputInt;
     std::string inputStr;
-    int menuLvl = 0;
+    int deathCount = 0;
 };
 
 #endif // MENU_H

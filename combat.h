@@ -2,19 +2,26 @@
 #define COMBAT_H
 #include "entity.h"
 #include "character.h"
+#include "enemyList.h"
 
 class Combat
 {
 public:
     Combat();
-    Combat(Entity);
     int generateRandomInt(int=100,int=0);
-    void enemyTurn();
-    void allyTurn();
-    void battle();
+    void getIntInput();
+    void getStrInput();
+    void enemyTurn(Character&, Entity&, int);
+    void allyTurn(Character&, Entity&, int);
+    void battle(Character&, int);
     ~Combat();
 private:
-    Entity mEnemy;
+    //Entity mEnemy;
+    int mMonsterIdx;
+    EnemyList monster;
+    std::string lineSeperator = "-----------------------------\n";
+    int inputInt;
+    std::string inputStr;
 };
 
 #endif // COMBAT_H
