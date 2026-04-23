@@ -2,7 +2,7 @@
 #define COMBAT_H
 #include "entity.h"
 #include "character.h"
-#include "enemyList.h"
+#include "entityList.h"
 
 class Combat
 {
@@ -18,7 +18,7 @@ public:
 private:
     //Entity mEnemy;
     int mMonsterIdx;
-    EnemyList monster;
+    EntityList monster;
     std::string lineSeperator = "-----------------------------\n";
     int inputInt;
     std::string inputStr;

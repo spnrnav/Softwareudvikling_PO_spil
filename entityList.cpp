@@ -1,6 +1,6 @@
-#include "enemylist.h"
+#include "entitylist.h"
 
-EnemyList::EnemyList(){
+EntityList::EntityList(){
     Entity hest("hest",4,1);
     Entity weakGoblin("Weak Goblin",4,2);
     Entity strongGoblin("Strong Goblin",8,3);
@@ -12,4 +12,4 @@ EnemyList::EnemyList(){
     list = {hest, weakGoblin, strongGoblin, strongerGoblin, strongestGoblin, abeKongen, enhjoerning, drage};
 }
 
-EnemyList::~EnemyList(){}
+EntityList::~EntityList(){}
