@@ -22,10 +22,55 @@ void Combat::getStrInput(){
     std::cout << lineSeperator;
 }
 
+void Combat::applyStatus(Entity& ally, Entity& enemy, std::string status){
+    if ((status == "Strength") or (status == "Regenerate") or (status == "block")){
+        ally.addStatus(status);
+    }
+    else{
+        enemy.addStatus(status);
+    }
+}
+
+void Combat::resolveStatus(Entity& creature){
+    std::vector<std::string> statusList = creature.getStatusList();
+    for (int i = 0; i < statusList.size(); i++){
+        if (statusList[i] == "Regenerate"){
+            creature.heal(2); // heals 2 (a scale could be implemented later) (can stack)
+        }
+        else if (statusList[i] == "Block"){
+            creature.addBlock(1); // blocks up to 1 incoming dmg, when the creature wold take damage next (can stack)
+        }
+        else if (statusList[i] == "Posion"){
+            creature.dealDmg(1); // deal 1 dmg each turn (can stack)
+        }
+        else if (statusList[i] == "Explode"){
+            creature.dealDmg(10); // deal 10 dmg (is removed after use)
+            creature.removeStatus(i);
+        }
+        else if (statusList[i] == "Strength"){
+            creature.addStrength(1); // adds 1 dmg to next attack (can stack)
+        }
+    }
+}
+
 void Combat::enemyTurn(Character& player, Entity& enemy, int allyIdx){
+    resolveStatus(enemy);
     if (enemy.getHP() > 0){ // Check enemy HP
-        std::cout << "Enemy " + enemy.getName() + " attacks\n";
-        player.collection[allyIdx].dealDmg(enemy.getDmg()); // deal damage to ally
+        if (enemy.getEquippedItems().empty()){
+            std::cout << "Enemy " + enemy.getName() + " attacks\n";
+            player.collection[allyIdx].dealDmg(enemy.getDmg()); // deal damage to ally
+        }
+        else {
+            if (generateRandomInt() < 50){
+                std::cout << "Enemy " + enemy.getName() + " attacks\n";
+                player.collection[allyIdx].dealDmg(enemy.getDmg()); // deal damage to ally
+            }
+            else {
+                Item use = enemy.getEquippedItems()[generateRandomInt((enemy.getEquippedItems().size()-1))]; // Choose item
+                std::cout << "Enemy " + enemy.getName() + " uses a " + use.getName() + "\n";
+                applyStatus(player.collection[allyIdx], enemy, use.getStatus()); // Apply status;
+            }
+        }
     }
     if (player.collection[allyIdx].getHP() <= 0){ // check ally HP
         std::cout << "Ally " + player.collection[allyIdx].getName() + " defeated\n";
@@ -33,6 +78,7 @@ void Combat::enemyTurn(Character& player, Entity& enemy, int allyIdx){
 }
 
 void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
+    resolveStatus(player.collection[allyIdx]);
     if (player.collection[allyIdx].getHP() > 0){
         std::cout << "Allied " + player.collection[allyIdx].getName() + " attacks\n";
         enemy.dealDmg(player.collection[allyIdx].getDmg()); // deal damage to enemy

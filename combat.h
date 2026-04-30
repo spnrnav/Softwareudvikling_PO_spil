@@ -11,6 +11,8 @@ public:
     int generateRandomInt(int=100,int=0);
     void getIntInput();
     void getStrInput();
+    void applyStatus(Entity&, Entity&, std::string);
+    void resolveStatus(Entity&);
     void enemyTurn(Character&, Entity&, int);
     void allyTurn(Character&, Entity&, int);
     void battle(Character&, int);
