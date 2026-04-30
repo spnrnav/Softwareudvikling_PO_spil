@@ -28,6 +28,14 @@ void Character::addMonster(Entity monster){
     else {
         std::cout << "Collection full, choose monster to replace: ";
         std::cin >> inputIdx;
+        if (inputIdx < 1){
+            std::cout << "Invalid index, defaulting to 1\n";
+            inputIdx = 1;
+        }
+        else if (inputIdx > 4){
+            std::cout << "Invalid index, defaulting to 4\n";
+            inputIdx = 4;
+        }
         replaceMonster(monster, (inputIdx - 1));
     }
 }
