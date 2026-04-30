@@ -11,7 +11,9 @@ add_executable(SU_PO_spil main.cpp
     menu.h menu.cpp
 
     combat.h combat.cpp
-    entityList.h entityList.cpp)
+    entityList.h entityList.cpp
+    item.h item.cpp
+    itemlist.h itemlist.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS SU_PO_spil

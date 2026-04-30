@@ -1,8 +1,9 @@
 # ninja log v6
-5	406	7959744459221040	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
-569	761	7992375490918365	SU_PO_spil.exe	7d5af1057075f4aa
-5	768	7992368385654891	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
-49	850	7986356710544563	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
-7	568	7992375485276831	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
-28	380	7958032709096318	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
-76	823	7986356710857698	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448
+2	506	7992387951766949	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
+414	680	7992467419602658	SU_PO_spil.exe	e223784f350fa63f
+49	545	7992387952219028	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
+35	521	7992387952094164	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
+31	537	7992387952030414	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
+18	391	7992387951905629	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
+54	497	7992387952275884	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448
+8	412	7992467415542070	CMakeFiles/SU_PO_spil.dir/item.cpp.obj	2eb75efa8985cae5
