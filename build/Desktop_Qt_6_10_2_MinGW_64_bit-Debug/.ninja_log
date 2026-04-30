@@ -1,3 +1,8 @@
 # ninja log v6
-38	600	7957248488555352	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
-601	838	7957248494190684	SU_PO_spil.exe	91153b8393eafc3
+5	406	7959744459221040	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
+569	761	7992375490918365	SU_PO_spil.exe	7d5af1057075f4aa
+5	768	7992368385654891	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
+49	850	7986356710544563	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
+7	568	7992375485276831	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
+28	380	7958032709096318	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
+76	823	7986356710857698	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448

@@ -55,6 +55,36 @@ build CMakeFiles/SU_PO_spil.dir/main.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned
   OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
   OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
 
+build CMakeFiles/SU_PO_spil.dir/entity.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned_Debug C$:/Users/andmi/Desktop/Robotteknologi/sem2/Softwareudvikling/PO/SU_PO_spil_med_cmake/SU_PO_spil/entity.cpp || cmake_object_order_depends_target_SU_PO_spil
+  DEP_FILE = CMakeFiles\SU_PO_spil.dir\entity.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
+  OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
+
+build CMakeFiles/SU_PO_spil.dir/character.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned_Debug C$:/Users/andmi/Desktop/Robotteknologi/sem2/Softwareudvikling/PO/SU_PO_spil_med_cmake/SU_PO_spil/character.cpp || cmake_object_order_depends_target_SU_PO_spil
+  DEP_FILE = CMakeFiles\SU_PO_spil.dir\character.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
+  OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
+
+build CMakeFiles/SU_PO_spil.dir/menu.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned_Debug C$:/Users/andmi/Desktop/Robotteknologi/sem2/Softwareudvikling/PO/SU_PO_spil_med_cmake/SU_PO_spil/menu.cpp || cmake_object_order_depends_target_SU_PO_spil
+  DEP_FILE = CMakeFiles\SU_PO_spil.dir\menu.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
+  OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
+
+build CMakeFiles/SU_PO_spil.dir/combat.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned_Debug C$:/Users/andmi/Desktop/Robotteknologi/sem2/Softwareudvikling/PO/SU_PO_spil_med_cmake/SU_PO_spil/combat.cpp || cmake_object_order_depends_target_SU_PO_spil
+  DEP_FILE = CMakeFiles\SU_PO_spil.dir\combat.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
+  OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
+
+build CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned_Debug C$:/Users/andmi/Desktop/Robotteknologi/sem2/Softwareudvikling/PO/SU_PO_spil_med_cmake/SU_PO_spil/entityList.cpp || cmake_object_order_depends_target_SU_PO_spil
+  DEP_FILE = CMakeFiles\SU_PO_spil.dir\entityList.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\SU_PO_spil.dir
+  OBJECT_FILE_DIR = CMakeFiles\SU_PO_spil.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SU_PO_spil
@@ -63,7 +93,7 @@ build CMakeFiles/SU_PO_spil.dir/main.cpp.obj: CXX_COMPILER__SU_PO_spil_unscanned
 #############################################
 # Link the executable SU_PO_spil.exe
 
-build SU_PO_spil.exe: CXX_EXECUTABLE_LINKER__SU_PO_spil_Debug CMakeFiles/SU_PO_spil.dir/main.cpp.obj
+build SU_PO_spil.exe: CXX_EXECUTABLE_LINKER__SU_PO_spil_Debug CMakeFiles/SU_PO_spil.dir/main.cpp.obj CMakeFiles/SU_PO_spil.dir/entity.cpp.obj CMakeFiles/SU_PO_spil.dir/character.cpp.obj CMakeFiles/SU_PO_spil.dir/menu.cpp.obj CMakeFiles/SU_PO_spil.dir/combat.cpp.obj CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\SU_PO_spil.dir

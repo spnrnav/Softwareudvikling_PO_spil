@@ -1,0 +1,47 @@
+#include "character.h"
+#include <iostream>
+#include "entityList.h"
+
+Character::Character() {}
+
+Character::Character(std::string characterName){
+    name = characterName;
+    EntityList monster;
+    addMonster(monster.list[0]);
+    addMonster(monster.list[0]);
+}
+
+
+
+bool Character::collectionLimit(){
+    return (collection.size() < 4); // True -> collection clear for addition, False -> collection limit reached
+}
+
+std::string Character::getName(){
+    return name;
+}
+
+void Character::addMonster(Entity monster){
+    if (collectionLimit()){
+        collection.push_back(monster);
+    }
+    else {
+        std::cout << "Collection full, choose monster to replace: ";
+        std::cin >> inputIdx;
+        if (inputIdx < 1){
+            std::cout << "Invalid index, defaulting to 1\n";
+            inputIdx = 1;
+        }
+        else if (inputIdx > 4){
+            std::cout << "Invalid index, defaulting to 4\n";
+            inputIdx = 4;
+        }
+        replaceMonster(monster, (inputIdx - 1));
+    }
+}
+
+void Character::replaceMonster(Entity newMonster, int idx){
+    collection[idx] = newMonster;
+}
+
+Character::~Character(){}

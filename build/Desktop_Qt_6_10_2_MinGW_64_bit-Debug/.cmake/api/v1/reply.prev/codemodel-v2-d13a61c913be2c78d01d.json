@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-b26f95521ef725eaa12b.json",
+					"jsonFile" : "directory-.-Debug-735f8e73961e3ea35a92.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -40,7 +40,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "SU_PO_spil::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-SU_PO_spil-Debug-1f8af34b33e8707c7400.json",
+					"jsonFile" : "target-SU_PO_spil-Debug-ecbd17bc8b61bb6d077e.json",
 					"name" : "SU_PO_spil",
 					"projectIndex" : 0
 				}
