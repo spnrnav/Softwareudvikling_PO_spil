@@ -109,7 +109,7 @@ void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
         if (inputStr == "y"){
             if (player.collectionLimit() == false){
                 for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
-                    std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getHP() << ", Dmg: " << player.collection[j].getDmg() << ")" << std::endl;
+                    std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
                 }
             }
             player.addMonster(monster.list[mMonsterIdx-1]); // run addMonster() function
@@ -137,9 +137,6 @@ void Combat::battle(Character& player, int monsterIdx){
         if (enemy.getHP() <= 0){
             break;
         }
-    }
-    for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
-        player.collection[i].resetAll();
     }
 }
 

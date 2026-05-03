@@ -5,7 +5,9 @@ Entity::Entity() {}
 Entity::Entity(std::string entityName, int health, int strength){
     name = entityName;
     hp = health;
+    baseHp = health;
     dmg = strength;
+    baseDmg = strength;
 }
 
 std::string Entity::getName(){

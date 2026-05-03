@@ -37,8 +37,8 @@ private:
     std::string name;
     int hp;
     int dmg;
-    int baseHp = hp;
-    int baseDmg = dmg;
+    int baseHp;
+    int baseDmg;
     int defence = 0;
     int strength = 0;
     std::vector<Item> equippedItems;

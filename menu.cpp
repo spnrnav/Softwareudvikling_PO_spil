@@ -104,6 +104,12 @@ void Menu::combat(Character& player){
             std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
             menuActive = false;
         }
+        else {
+            for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
+                player.collection[i].resetAll();
+                std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
+            }
+        }
     }
 }
 
