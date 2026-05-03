@@ -22,12 +22,12 @@ void Combat::getStrInput(){
     std::cout << lineSeperator;
 }
 
-void Combat::applyStatus(Entity& ally, Entity& enemy, std::string status){
+void Combat::applyStatus(Entity& caster, Entity& opponent, std::string status){
     if ((status == "Strength") or (status == "Regenerate") or (status == "block")){
-        ally.addStatus(status);
+        caster.addStatus(status);
     }
     else{
-        enemy.addStatus(status);
+        opponent.addStatus(status);
     }
 }
 
@@ -68,7 +68,7 @@ void Combat::enemyTurn(Character& player, Entity& enemy, int allyIdx){
             else {
                 Item use = enemy.getEquippedItems()[generateRandomInt((enemy.getEquippedItems().size()-1))]; // Choose item
                 std::cout << "Enemy " + enemy.getName() + " uses a " + use.getName() + "\n";
-                applyStatus(player.collection[allyIdx], enemy, use.getStatus()); // Apply status;
+                applyStatus(enemy, player.collection[allyIdx], use.getStatus()); // Apply status;
             }
         }
     }
@@ -80,10 +80,29 @@ void Combat::enemyTurn(Character& player, Entity& enemy, int allyIdx){
 void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
     resolveStatus(player.collection[allyIdx]);
     if (player.collection[allyIdx].getHP() > 0){
-        std::cout << "Allied " + player.collection[allyIdx].getName() + " attacks\n";
-        enemy.dealDmg(player.collection[allyIdx].getDmg()); // deal damage to enemy
+        if (!(player.collection[allyIdx].getEquippedItems().empty())){ // Allow for choice of action, if it is relevent
+            std::cout << "1: Attack \n2: Use item \nChoose action: ";
+            getIntInput();
+        }
+        else { // Defaults to attack
+            inputInt = 1;
+        }
+
+        if (inputInt == 2){ // Use item
+            for (int i = 0; i < player.collection[allyIdx].getEquippedItems().size(); i++){
+                std::cout << (i+1) << ": " << player.collection[allyIdx].getEquippedItems()[i].getName() << "\n";
+                std::cout << "Choose item to use: ";
+                getIntInput();
+                std::cout << "Allied " + player.collection[allyIdx].getName() + " uses a " + player.collection[allyIdx].getEquippedItems()[inputInt].getName() + "\n";
+                applyStatus(player.collection[allyIdx],enemy,player.collection[allyIdx].getEquippedItems()[inputInt].getStatus());
+            }
+        }
+        else { // Defaults to regular attack
+            std::cout << "Allied " + player.collection[allyIdx].getName() + " attacks\n";
+            enemy.dealDmg(player.collection[allyIdx].getDmg()); // deal damage to enemy
+        }
     }
-    if (enemy.getHP() <= 0){ // Enemy HP<0
+    if (enemy.getHP() <= 0){ // Enemy HP<=0
         std::cout << "Enemy " <<  enemy.getName() << " defeated\n";
         std::cout << "Capture enemy? (y/n): ";
         getStrInput();
@@ -118,6 +137,9 @@ void Combat::battle(Character& player, int monsterIdx){
         if (enemy.getHP() <= 0){
             break;
         }
+    }
+    for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
+        player.collection[i].resetAll();
     }
 }
 

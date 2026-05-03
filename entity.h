@@ -22,6 +22,7 @@ public:
     void addStrength(int s){strength += s;}
     void resetHP(){hp = baseHp;}
     void resetDmg(){dmg = baseDmg;}
+    void resetAll() {resetDmg();resetHP();resetStatus();}
 
     void equipItem(Item);
     std::vector<Item> getEquippedItems(){return equippedItems;}
