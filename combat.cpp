@@ -20,6 +20,12 @@ void Combat::getStrInput(){
     std::cin.ignore();
     getline(std::cin, inputStr, '\n');
     std::cout << lineSeperator;
+    std::cout << "\"" + inputStr + "\"";
+}
+
+void Combat::getChaInput(){
+    std::cin >> inputCha;
+    std::cout << lineSeperator;
 }
 
 void Combat::applyStatus(Entity& caster, Entity& opponent, std::string status){
@@ -93,8 +99,8 @@ void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
                 std::cout << (i+1) << ": " << player.collection[allyIdx].getEquippedItems()[i].getName() << "\n";
                 std::cout << "Choose item to use: ";
                 getIntInput();
-                std::cout << "Allied " + player.collection[allyIdx].getName() + " uses a " + player.collection[allyIdx].getEquippedItems()[inputInt].getName() + "\n";
-                applyStatus(player.collection[allyIdx],enemy,player.collection[allyIdx].getEquippedItems()[inputInt].getStatus());
+                std::cout << "Allied " + player.collection[allyIdx].getName() + " uses a " + player.collection[allyIdx].getEquippedItems()[inputInt-1].getName() + "\n";
+                applyStatus(player.collection[allyIdx],enemy,player.collection[allyIdx].getEquippedItems()[inputInt-1].getStatus());
             }
         }
         else { // Defaults to regular attack
@@ -105,8 +111,8 @@ void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
     if (enemy.getHP() <= 0){ // Enemy HP<=0
         std::cout << "Enemy " <<  enemy.getName() << " defeated\n";
         std::cout << "Capture enemy? (y/n): ";
-        getStrInput();
-        if (inputStr == "y"){
+        getChaInput();
+        if (inputCha == 'y'){
             if (player.collectionLimit() == false){
                 for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
                     std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;

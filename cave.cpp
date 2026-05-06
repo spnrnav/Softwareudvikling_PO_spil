@@ -25,7 +25,7 @@ void Cave::generateCave(Character& player){
     int caveEstimate = 0;
     while (caveEstimate < lvlEstimate){
         int idx = generateRandomInt(maxIdx);
-        hostiles.push_back(enemyList.list[idx]); // Add enemy to cave
+        hostilesIdx.push_back(idx+1); // Add enemy to cave
         caveEstimate += idx+1; // Update cave lvl estimate
         if (caveEstimate < (maxIdx+1)){ // Regulate max enemy lvl
             maxIdx = lvlEstimate-caveEstimate;

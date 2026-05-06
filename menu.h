@@ -15,6 +15,7 @@ public:
     void manage(Character&);
     void combat(Character&);
     void caveCombat(Character&);
+    void updateDeathcount(Character&);
     ~Menu();
 private:
     std::string lineSeperator = "-----------------------------\n";

@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "combat.h"
 //#include "enemylist.h"
+#include "cave.h"
 
 Menu::Menu() {}
 
@@ -59,10 +60,10 @@ void Menu::sub(Character& character){
             combat(character);
         }
         else if (inputInt == 2){ // Fight cave
-            menuActive = false;
+            caveCombat(character);
         }
         else if (inputInt == 3){ // Manage monsters
-            menuActive = false;
+            manage(character);
         }
         else if (inputInt == 4){ // Quit sub menu
             menuActive = false;
@@ -94,14 +95,13 @@ void Menu::manage(Character& player){
             player.removeMonster(inputInt-1);
         }
         else if (inputInt == 2){ // Equip monster with item
-            int itemIdx;
             for (int i = 0; i < player.getItems().size(); i++){
                 std::cout << i+1 << ": " << player.getItems()[i].getName() << std::endl;
             }
             std::cout << "Choose item to equip: ";
             getIntInput();
-            if ((inputInt >= 0) and (inputInt < player.getItems().size())){
-                itemIdx = inputInt-1;
+            int itemIdx = inputInt-1;
+            if ((itemIdx >= 0) and (itemIdx < player.getItems().size())){
                 for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
                     std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
                 }
@@ -146,12 +146,7 @@ void Menu::combat(Character& player){
         else{
             std::cout << "Invallid input\n";
         }
-        deathCount = 0; // Reset deathCount
-        for (int i = 0; i < player.collection.size(); i++){
-            if (player.collection[i].getHP() <= 0){ // Count dead allies
-                deathCount++;
-            }
-        }
+        updateDeathcount(player);
         if (deathCount == player.collection.size()){ // Quit combat menu if all allies are defeated
             std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
             menuActive = false;
@@ -159,8 +154,43 @@ void Menu::combat(Character& player){
         else {
             for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
                 player.collection[i].resetAll();
-                std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
+                //std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
             }
+        }
+    }
+}
+
+void Menu::caveCombat(Character& player){
+    Cave cave(player);
+    Combat combat;
+    std::vector<int> enemies = cave.getHostiles();
+    bool menuActive = true;
+    while (menuActive){
+        for (int i = 0; i < enemies.size(); i++){
+            combat.battle(player,enemies[i]);
+            updateDeathcount(player);
+            if (deathCount == player.collection.size()){ // Quit caveCombat menu if all allies are defeated
+                std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
+                break;
+            }
+        }
+        menuActive = false;
+        for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
+            player.collection[i].resetAll();
+            //std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
+        }
+        if (deathCount < 4){
+            std::cout << "No enemies left \nYou find a strange looking " << cave.getReward().getName() << "\n";
+            player.addItem(cave.getReward());
+        }
+    }
+}
+
+void Menu::updateDeathcount(Character& player){
+    deathCount = 0; // Reset deathCount
+    for (int i = 0; i < player.collection.size(); i++){
+        if (player.collection[i].getHP() <= 0){ // Count dead allies
+            deathCount++;
         }
     }
 }

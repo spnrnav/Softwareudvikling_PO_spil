@@ -11,6 +11,7 @@ public:
     int generateRandomInt(int=100,int=0);
     void getIntInput();
     void getStrInput();
+    void getChaInput();
     void applyStatus(Entity&, Entity&, std::string);
     void resolveStatus(Entity&);
     void enemyTurn(Character&, Entity&, int);
@@ -24,6 +25,7 @@ private:
     std::string lineSeperator = "-----------------------------\n";
     int inputInt;
     std::string inputStr;
+    char inputCha;
 };
 
 #endif // COMBAT_H

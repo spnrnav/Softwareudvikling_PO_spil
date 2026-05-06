@@ -10,11 +10,11 @@ public:
     Cave(Character&);
     void generateCave(Character&);
     Item getReward() {return reward;}
-    std::vector<Entity> getHostiles(){return hostiles;}
+    std::vector<int> getHostiles(){return hostilesIdx;}
     int generateRandomInt(int=100,int=0);
     ~Cave(){};
 private:
-    std::vector<Entity> hostiles;
+    std::vector<int> hostilesIdx;
     Item reward;
 };
 
