@@ -40,6 +40,10 @@ void Character::addMonster(Entity monster){
     }
 }
 
+void Character::removeMonster(int idx){
+    collection.erase(collection.begin() + idx);
+}
+
 void Character::replaceMonster(Entity newMonster, int idx){
     collection[idx] = newMonster;
 }

@@ -12,7 +12,9 @@ public:
     void getStrInput();
     void main();
     void sub(Character&);
+    void manage(Character&);
     void combat(Character&);
+    void caveCombat(Character&);
     ~Menu();
 private:
     std::string lineSeperator = "-----------------------------\n";

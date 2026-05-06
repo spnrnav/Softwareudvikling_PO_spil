@@ -49,14 +49,22 @@ void Menu::sub(Character& character){
     while (menuActive){
         std::cout << "--------Adventure menu-------\n"
                   << "1: Fight monster\n"
-                  << "2: Quit adventure\n" + lineSeperator
+                  << "2: Fight cave\n"
+                  << "3: Manage monsters\n"
+                  << "4: Quit adventure\n" + lineSeperator
                   << "Choose action: ";
         getIntInput();
 
         if (inputInt == 1){ // Fight monster
             combat(character);
         }
-        else if (inputInt == 2){ // Quit sub menu
+        else if (inputInt == 2){ // Fight cave
+            menuActive = false;
+        }
+        else if (inputInt == 3){ // Manage monsters
+            menuActive = false;
+        }
+        else if (inputInt == 4){ // Quit sub menu
             menuActive = false;
         }
         else{
@@ -64,6 +72,50 @@ void Menu::sub(Character& character){
         }
         if (deathCount == character.collection.size()){ // Quit sub menu if all allies are defeated
             menuActive = false;
+        }
+    }
+}
+
+void Menu::manage(Character& player){
+    bool menuActive = true;
+    while (menuActive){
+        std::cout << "1: Release\n"
+                  << "2: Give item\n"
+                  << "3: Exit\n" + lineSeperator
+                  << "Choose action: ";
+        getIntInput();
+
+        if (inputInt == 1){ // Remove ally monster
+            for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
+            }
+            std::cout << "Choose ally to release: ";
+            getIntInput();
+            player.removeMonster(inputInt-1);
+        }
+        else if (inputInt == 2){ // Equip monster with item
+            int itemIdx;
+            for (int i = 0; i < player.getItems().size(); i++){
+                std::cout << i+1 << ": " << player.getItems()[i].getName() << std::endl;
+            }
+            std::cout << "Choose item to equip: ";
+            getIntInput();
+            if ((inputInt >= 0) and (inputInt < player.getItems().size())){
+                itemIdx = inputInt-1;
+                for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                    std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
+                }
+                std::cout << "Choose ally to equip " << player.getItems()[itemIdx].getName() << ": ";
+                getIntInput();
+                player.collection[inputInt-1].equipItem(player.getItems()[itemIdx]);
+                player.removeItem(itemIdx);
+            }
+        }
+        else if (inputInt == 3){
+            break;
+        }
+        else{
+            std::cout << "Invallid input\n";
         }
     }
 }
