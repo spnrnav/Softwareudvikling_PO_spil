@@ -179,7 +179,7 @@ void Menu::caveCombat(Character& player){
             player.collection[i].resetAll();
             //std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
         }
-        if (deathCount < 4){
+        if (deathCount < player.collection.size()){
             std::cout << "No enemies left \nYou find a strange looking " << cave.getReward().getName() << "\n";
             player.addItem(cave.getReward());
         }
