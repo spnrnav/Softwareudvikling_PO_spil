@@ -1,15 +1,13 @@
 # ninja log v6
-5	406	7959744459221040	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
-569	761	7992375490918365	SU_PO_spil.exe	7d5af1057075f4aa
-5	768	7992368385654891	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
-49	850	7986356710544563	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
-7	568	7992375485276831	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
-28	380	7958032709096318	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
-76	823	7986356710857698	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448
-2	648	8007266096958150	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
-14	655	8007266097115715	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
-52	685	8007266097434003	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448
-33	689	8007266097320536	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
-42	691	8007266097415983	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
-22	700	8007266097214531	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
-700	990	8007266104000825	SU_PO_spil.exe	7d5af1057075f4aa
+7	558	7997619415656561	CMakeFiles/SU_PO_spil.dir/cave.cpp.obj	3852d5fe1fc1dc2a
+25	368	7992636674909030	CMakeFiles/SU_PO_spil.dir/itemlist.cpp.obj	11104c7e08f6fc9f
+8	412	7992467415542070	CMakeFiles/SU_PO_spil.dir/item.cpp.obj	2eb75efa8985cae5
+107	1263	7997608326317100	CMakeFiles/SU_PO_spil.dir/entityList.cpp.obj	cf89e6ac10896448
+32	1184	7997608325576842	CMakeFiles/SU_PO_spil.dir/entity.cpp.obj	3e94def43674d9f9
+49	1263	7997608325754774	CMakeFiles/SU_PO_spil.dir/character.cpp.obj	6beee2c73d014e21
+5	739	7997663140098900	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
+6	652	7997660152332503	CMakeFiles/SU_PO_spil.dir/combat.cpp.obj	837c231b7cabb334
+739	1013	7997663147440239	SU_PO_spil.exe	5da772ab4b15a969
+12	1159	7997608325385328	CMakeFiles/SU_PO_spil.dir/main.cpp.obj	7295134d1a212400
+6	550	7997663755986188	CMakeFiles/SU_PO_spil.dir/menu.cpp.obj	61053855c0c8a46e
+550	804	7997663761429294	SU_PO_spil.exe	5da772ab4b15a969

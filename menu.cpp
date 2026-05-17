@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "combat.h"
 //#include "enemylist.h"
+#include "cave.h"
 
 Menu::Menu() {}
 
@@ -49,14 +50,22 @@ void Menu::sub(Character& character){
     while (menuActive){
         std::cout << "--------Adventure menu-------\n"
                   << "1: Fight monster\n"
-                  << "2: Quit adventure\n" + lineSeperator
+                  << "2: Fight cave\n"
+                  << "3: Manage monsters\n"
+                  << "4: Quit adventure\n" + lineSeperator
                   << "Choose action: ";
         getIntInput();
 
         if (inputInt == 1){ // Fight monster
             combat(character);
         }
-        else if (inputInt == 2){ // Quit sub menu
+        else if (inputInt == 2){ // Fight cave
+            caveCombat(character);
+        }
+        else if (inputInt == 3){ // Manage monsters
+            manage(character);
+        }
+        else if (inputInt == 4){ // Quit sub menu
             menuActive = false;
         }
         else{
@@ -64,6 +73,49 @@ void Menu::sub(Character& character){
         }
         if (deathCount == character.collection.size()){ // Quit sub menu if all allies are defeated
             menuActive = false;
+        }
+    }
+}
+
+void Menu::manage(Character& player){
+    bool menuActive = true;
+    while (menuActive){
+        std::cout << "1: Release\n"
+                  << "2: Give item\n"
+                  << "3: Exit\n" + lineSeperator
+                  << "Choose action: ";
+        getIntInput();
+
+        if (inputInt == 1){ // Remove ally monster
+            for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
+            }
+            std::cout << "Choose ally to release: ";
+            getIntInput();
+            player.removeMonster(inputInt-1);
+        }
+        else if (inputInt == 2){ // Equip monster with item
+            for (int i = 0; i < player.getItems().size(); i++){
+                std::cout << i+1 << ": " << player.getItems()[i].getName() << std::endl;
+            }
+            std::cout << "Choose item to equip: ";
+            getIntInput();
+            int itemIdx = inputInt-1;
+            if ((itemIdx >= 0) and (itemIdx < player.getItems().size())){
+                for (int j = 0; j < player.collection.size(); j++){ // Display names of all allies
+                    std::cout << j+1 << ": " << player.collection[j].getName() << " (Hp: " << player.collection[j].getBaseHP() << ", Dmg: " << player.collection[j].getBaseDmg() << ")" << std::endl;
+                }
+                std::cout << "Choose ally to equip " << player.getItems()[itemIdx].getName() << ": ";
+                getIntInput();
+                player.collection[inputInt-1].equipItem(player.getItems()[itemIdx]);
+                player.removeItem(itemIdx);
+            }
+        }
+        else if (inputInt == 3){
+            break;
+        }
+        else{
+            std::cout << "Invallid input\n";
         }
     }
 }
@@ -94,15 +146,51 @@ void Menu::combat(Character& player){
         else{
             std::cout << "Invallid input\n";
         }
-        deathCount = 0; // Reset deathCount
-        for (int i = 0; i < player.collection.size(); i++){
-            if (player.collection[i].getHP() <= 0){ // Count dead allies
-                deathCount++;
-            }
-        }
+        updateDeathcount(player);
         if (deathCount == player.collection.size()){ // Quit combat menu if all allies are defeated
             std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
             menuActive = false;
+        }
+        else {
+            for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
+                player.collection[i].resetAll();
+                //std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
+            }
+        }
+    }
+}
+
+void Menu::caveCombat(Character& player){
+    Cave cave(player);
+    Combat combat;
+    std::vector<int> enemies = cave.getHostiles();
+    bool menuActive = true;
+    while (menuActive){
+        for (int i = 0; i < enemies.size(); i++){
+            combat.battle(player,enemies[i]);
+            updateDeathcount(player);
+            if (deathCount == player.collection.size()){ // Quit caveCombat menu if all allies are defeated
+                std::cout << "No allied monsters left \nReturning to Main Menu" << std::endl;
+                break;
+            }
+        }
+        menuActive = false;
+        for (int i = 0; i < player.collection.size(); i++){ // Reset HP, dmg, and status effects for all allied monsters
+            player.collection[i].resetAll();
+            //std::cout << "reset triggered" << player.collection[i].getDmg() << " " << player.collection[i].getHP();
+        }
+        if (deathCount < 4){
+            std::cout << "No enemies left \nYou find a strange looking " << cave.getReward().getName() << "\n";
+            player.addItem(cave.getReward());
+        }
+    }
+}
+
+void Menu::updateDeathcount(Character& player){
+    deathCount = 0; // Reset deathCount
+    for (int i = 0; i < player.collection.size(); i++){
+        if (player.collection[i].getHP() <= 0){ // Count dead allies
+            deathCount++;
         }
     }
 }
