@@ -2,16 +2,20 @@
 #define DATABASECOMS_H
 #include <string>
 #include <vector>
+#include <sqlite3>
 
 class DatabaseComs
 {
 public:
-    DatabaseComs(std::string n){fileName = n;}
+    DatabaseComs(std::string);
     std::string getFileName(){return fileName;}
     void setFileName(std::string nNew){fileName = nNew;}
-    ~DatabaseComs(){if(db){sqlite3_close}};
+    bool execute(std::string);
+    void createTables();
+    ~DatabaseComs();
 private:
     std::string fileName;
+    sqlite3* db;
 };
 
 #endif // DATABASECOMS_H

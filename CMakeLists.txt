@@ -7,13 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5Sql REQUIRED)
 
-# Link each target with other targets or add options, etc.
-#add_executable(Main main.cpp)
-#target_link_libraries(Main  Qt5::Core Qt5::Sql)
-
-#add_executable(Insert main_insert.cpp)
-#target_link_libraries(Insert  Qt5::Core Qt5::Sq
-
 add_executable(SU_PO_spil main.cpp
     entity.h entity.cpp
     character.h character.cpp
@@ -27,7 +20,15 @@ add_executable(SU_PO_spil main.cpp
 
     databaseComs.h databaseComs.cpp)
 
-include(GNUInstallDirs)
+# Link each target with other targets or add options, etc.
+#add_executable(Main main.cpp)
+target_link_libraries(Main PRIVATE sqlite3)
+
+#add_executable(Insert main_insert.cpp)
+#target_link_libraries(Insert  Qt5::Core Qt5::Sq
+
+
+    include(GNUInstallDirs)
 install(TARGETS SU_PO_spil
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
