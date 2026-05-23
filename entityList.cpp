@@ -1,4 +1,4 @@
-#include "entitylist.h"
+#include "entityList.h"
 
 EntityList::EntityList(){
     Entity hest("hest",4,1);
