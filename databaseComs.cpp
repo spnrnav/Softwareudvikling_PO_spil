@@ -6,33 +6,32 @@
 
 DatabaseComs::DatabaseComs(std::string n) {
     fileName = n;
-    db = nullptr;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("database.db");
+    std::cout << "Database opened\n";
     
-    int return_value = sqlite3_open(file.c_str(), &db); 
-    
-    if(return_value) {
-        std::cerr << "Error, could not open database. " << sqlite3_errmsg(db) << std::endl;
-    }   
-    else {
-        std::cout << "Opened database succesfully! " << std::endl;
+    if (db.open()){
+    	std::cout << "Database opened\n";
+    }
+    else{
+	std::cout << "Database failed to open\n";
     }
 }
 
 DatabaseComs::~DatabaseComs(){
-    if(db){
-        sqlite3_close(db);
+    if(db.isOpen()){
+        db.close();
         std::cout << "Database closed\n";
     }
 }
 
 bool DatabaseComs::execute(std::string sql){
-    char* errMsg = nullptr;
+    QSqlQuery query;
 
-    int return_code = sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errMsg); 
-
-    if(return_code != SQLITE_OK) {
-        std::cerr << " SQL error: " << errMsg << std::endl;
-        sqlite3_free(errMsg);
+    if (!query.exec(QString::fromStdString(sql))) {
+        std::cerr << "SQL Error: "
+                  << query.lastError().text().toStdString()
+                  << std::endl;
         return false;
     }
 
@@ -53,16 +52,17 @@ void DatabaseComs::createTables(){
         ");";
     
     std::string entity =
-        "CREATE TABLE Entity ("
+        "CREATE TABLE IF NOT EXISTS Entity ("
         "entityIdx	INTEGER,"
         "characterId	INTEGER,"
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
         ");";
 
     std::string item =
-        "CREATE TABLE Entity ("
-        "entityIdx	INTEGER,"
+        "CREATE TABLE IF NOT EXISTS ITEM ("
+        "itemIdx	INTEGER,"
         "characterId	INTEGER,"
+        "itemKills	INTEGER,"
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
         ");";
     

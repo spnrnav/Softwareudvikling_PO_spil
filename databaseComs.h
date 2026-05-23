@@ -18,7 +18,7 @@ public:
     ~DatabaseComs();
 private:
     std::string fileName;
-    sqlite3* db;
+    QSqlDatabase db;
 };
 
 #endif // DATABASECOMS_H
