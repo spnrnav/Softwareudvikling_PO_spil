@@ -2,7 +2,10 @@
 #define DATABASECOMS_H
 #include <string>
 #include <vector>
-#include <sqlite3>
+#include <QCoreApplication>
+#include <QtSql>
+#include <QSqlDatabase>
+
 
 class DatabaseComs
 {

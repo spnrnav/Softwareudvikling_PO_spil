@@ -236,6 +236,8 @@ SU_PO_spil: CMakeFiles/SU_PO_spil.dir/itemlist.cpp.o
 SU_PO_spil: CMakeFiles/SU_PO_spil.dir/cave.cpp.o
 SU_PO_spil: CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o
 SU_PO_spil: CMakeFiles/SU_PO_spil.dir/build.make
+SU_PO_spil: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.3
+SU_PO_spil: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 SU_PO_spil: CMakeFiles/SU_PO_spil.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable SU_PO_spil"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SU_PO_spil.dir/link.txt --verbose=$(VERBOSE)

@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5Sql REQUIRED)
+#find_package(Qt5 REQUIRED COMPONENTS Core Sql)
+#find_package(SQLite3 REQUIRED)
 
 add_executable(SU_PO_spil main.cpp
     entity.h entity.cpp
@@ -22,7 +24,7 @@ add_executable(SU_PO_spil main.cpp
 
 # Link each target with other targets or add options, etc.
 #add_executable(Main main.cpp)
-target_link_libraries(Main PRIVATE sqlite3)
+target_link_libraries(SU_PO_spil PRIVATE Qt5::Core Qt5::Sql)
 
 #add_executable(Insert main_insert.cpp)
 #target_link_libraries(Insert  Qt5::Core Qt5::Sq

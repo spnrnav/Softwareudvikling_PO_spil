@@ -1,6 +1,8 @@
 #include "databaseComs.h"
 #include <iostream>
-#include <sqlite3.h>
+#include <QCoreApplication>
+#include <QtSql>
+#include <QSqlDatabase>
 
 DatabaseComs::DatabaseComs(std::string n) {
     fileName = n;
