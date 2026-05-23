@@ -23,7 +23,9 @@ add_executable(SU_PO_spil main.cpp
     entityList.h entityList.cpp
     item.h item.cpp
     itemlist.h itemlist.cpp
-    cave.h cave.cpp)
+    cave.h cave.cpp
+
+    databaseComs.h databaseComs.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS SU_PO_spil
