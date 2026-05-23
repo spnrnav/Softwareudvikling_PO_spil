@@ -5,6 +5,7 @@
 #include <QCoreApplication>
 #include <QtSql>
 #include <QSqlDatabase>
+#include "character.h"
 
 
 class DatabaseComs
@@ -15,6 +16,9 @@ public:
     void setFileName(std::string nNew){fileName = nNew;}
     bool execute(std::string);
     void createTables();
+    void saveCharacter(Character&);
+    void addSave(Character&);
+    void updateSave(int, Character&);
     ~DatabaseComs();
 private:
     std::string fileName;
