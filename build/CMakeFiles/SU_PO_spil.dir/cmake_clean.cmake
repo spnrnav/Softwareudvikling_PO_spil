@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SU_PO_spil.dir/character.cpp.o.d"
   "CMakeFiles/SU_PO_spil.dir/combat.cpp.o"
   "CMakeFiles/SU_PO_spil.dir/combat.cpp.o.d"
+  "CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o"
+  "CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o.d"
   "CMakeFiles/SU_PO_spil.dir/entity.cpp.o"
   "CMakeFiles/SU_PO_spil.dir/entity.cpp.o.d"
   "CMakeFiles/SU_PO_spil.dir/entityList.cpp.o"

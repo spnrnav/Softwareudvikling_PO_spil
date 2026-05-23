@@ -246,6 +246,30 @@ combat.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/combat.cpp.s
 .PHONY : combat.cpp.s
 
+databaseComs.o: databaseComs.cpp.o
+.PHONY : databaseComs.o
+
+# target to build an object file
+databaseComs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o
+.PHONY : databaseComs.cpp.o
+
+databaseComs.i: databaseComs.cpp.i
+.PHONY : databaseComs.i
+
+# target to preprocess a source file
+databaseComs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.i
+.PHONY : databaseComs.cpp.i
+
+databaseComs.s: databaseComs.cpp.s
+.PHONY : databaseComs.s
+
+# target to generate assembly for a file
+databaseComs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.s
+.PHONY : databaseComs.cpp.s
+
 entity.o: entity.cpp.o
 .PHONY : entity.o
 
@@ -412,6 +436,9 @@ help:
 	@echo "... combat.o"
 	@echo "... combat.i"
 	@echo "... combat.s"
+	@echo "... databaseComs.o"
+	@echo "... databaseComs.i"
+	@echo "... databaseComs.s"
 	@echo "... entity.o"
 	@echo "... entity.i"
 	@echo "... entity.s"

@@ -81,12 +81,12 @@ clean: CMakeFiles/SU_PO_spil.dir/clean
 CMakeFiles/SU_PO_spil.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SU_PO_spil.dir/build.make CMakeFiles/SU_PO_spil.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target SU_PO_spil"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target SU_PO_spil"
 .PHONY : CMakeFiles/SU_PO_spil.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SU_PO_spil.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SU_PO_spil.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles 0
 .PHONY : CMakeFiles/SU_PO_spil.dir/rule
