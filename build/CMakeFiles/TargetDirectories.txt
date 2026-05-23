@@ -1,0 +1,7 @@
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/SU_PO_spil.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/edit_cache.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/rebuild_cache.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/list_install_components.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/install.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/install/local.dir
+/home/sammy/workspace/PO/Softwareudvikling_PO_spil/build/CMakeFiles/install/strip.dir
