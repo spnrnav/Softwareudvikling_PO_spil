@@ -48,4 +48,18 @@ void Character::replaceMonster(Entity newMonster, int idx){
     collection[idx] = newMonster;
 }
 
+std::string Character::getMostUsedItem(){
+    int mostUses = -1;
+    mostUsedItem = "N/A";
+    for (int i = 0; i < collection.size(); ++i){
+        for (int j = 0; j < collection[i].getEquippedItems().size(); ++i){
+            if (mostUses < collection[i].getEquippedItems()[j].getUses()){
+                mostUses = collection[i].getEquippedItems()[j].getUses();
+                mostUsedItem = collection[i].getEquippedItems()[j].getName();
+            }
+        }
+    }
+    return mostUsedItem;
+}
+
 Character::~Character(){}

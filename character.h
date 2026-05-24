@@ -18,11 +18,16 @@ public:
     void addItem(Item newItem) {items.push_back(newItem);}
     void removeItem(int idx) {items.erase(items.begin() + idx);}
     std::vector<Item> getItems(){return items;}
+    int getKillCount(){return killCount;}
+    void addKill(int kills = 1){killCount += kills;}
+    std::string getMostUsedItem();
     ~Character();
 private:
     int inputIdx;
     std::string name;
     std::vector<Item> items;
+    int killCount = 0;
+    std::string mostUsedItem;
 };
 
 #endif // CHARACTER_H

@@ -101,6 +101,7 @@ void Combat::allyTurn(Character& player, Entity& enemy, int allyIdx){
                 getIntInput();
                 std::cout << "Allied " + player.collection[allyIdx].getName() + " uses a " + player.collection[allyIdx].getEquippedItems()[inputInt-1].getName() + "\n";
                 applyStatus(player.collection[allyIdx],enemy,player.collection[allyIdx].getEquippedItems()[inputInt-1].getStatus());
+                player.collection[allyIdx].getEquippedItems()[inputInt-1].addUse(); // add use to item
             }
         }
         else { // Defaults to regular attack
