@@ -88,10 +88,11 @@ void DatabaseComs::saveCharacter(Character& karakter){
 }
 
 void DatabaseComs::addSave(Character& karakter){
-    QSqlQuery query;
+    //QSqlQuery query;
+    std::string command;
 
     // Add character
-    query.prepare("INSERT INTO Character "
+    /*query.prepare("INSERT INTO Character "
                   "VALUES (?, ?, ?, ?, ?,)");
     int charIdx = 0; // must be the integer after the integer before
     query.addBindValue(charIdx); // characterId
@@ -100,58 +101,79 @@ void DatabaseComs::addSave(Character& karakter){
     query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
     query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
     //qDebug << query.exec();
-    query.exec();
-    std::cout << "Character added\n";
+    query.exec();*/
+    command = "INSERT INTO Character "
+              "VALUES (";
+    command += charIdx + ", " + karakter.getName() + ", " + karakter.getKillCount() + ", " + karakter.getMostUsedItem() + ", " + karakter.getMostUsedEntity() + ");";
+    execute(command);
 
     // Add monsters
     EntityList el;
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
-        query.prepare("INSERT INTO Entity "
-                      "VALUES (?, ?, ?)");
+        //query.prepare("INSERT INTO Entity "
+        //              "VALUES (?, ?, ?)");
+        command = "INSERT INTO Entity "
+                  "VALUES (";
         int entId = 0; // must be the integer after the integer before
-        query.addBindValue(entId); // entityId
-        query.addBindValue(charIdx); // characterId
+        //query.addBindValue(entId); // entityId
+        command += entId + ", ";
+        //query.addBindValue(charIdx); // characterId
+        command += charIdx + ", ";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
                 entIdx = j;
             }
         }
-        query.addBindValue(entIdx); // entityIdx
-        query.exec();
+        //query.addBindValue(entIdx); // entityIdx
+        command += entIdx + ");";
+        //query.exec();
+        execute(command);
 
         // Add monster items
         for (int j = 0; j < karakter.collection[i].getEquippedItems().size(); ++j){
-            query.prepare("INSERT INTO EntItem "
-                          "VALUES (?, ?, ?, ?)");
+            //query.prepare("INSERT INTO EntItem "
+            //              "VALUES (?, ?, ?, ?)");
+            command = "INSERT INTO EntItem "
+                      "VALUES (";
             int iteIdx;
             for (int k = 0; k < il.list.size(); ++k){
                 if (il.list[k].getName() == karakter.collection[i].getEquippedItems()[j].getName()){
                     iteIdx = k;
                 }
             }
-            query.addBindValue(iteIdx); // itemIdx
-            query.addBindValue(entId); // entityId
-            query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
-            query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
-            query.exec();
+            //query.addBindValue(iteIdx); // itemIdx
+            command += iteIdx + ", ";
+            //query.addBindValue(entId); // entityId
+            command += entId + ", ";
+            //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
+            command += karakter.getItems()[i].getKills() + ", ";
+            //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
+            command += karakter.getItems()[i].getUses() + ");";
+            //query.exec();
+            execute(command);
         }
     }
     
     // Add character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
-        query.prepare("INSERT INTO CharItem "
-                      "VALUES (?, ?)");
+        //query.prepare("INSERT INTO CharItem "
+        //              "VALUES (?, ?)");
+        command = "INSERT INTO CharItem "
+                  "VALUES (";
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
             if (il.list[j].getName() == karakter.getItems()[i].getName()){
                 iteIdx = j;
             }
         }
-        query.addBindValue(iteIdx); // itemIdx
-        query.addBindValue(charIdx); // characterId
-        query.exec();
+        //query.addBindValue(iteIdx); // itemIdx
+        command += iteIdx + ", ";
+        //query.addBindValue(charIdx); // characterId
+        command += charIdx + ");";
+        //query.exec();
+        execute(command);
     }
 }
 
