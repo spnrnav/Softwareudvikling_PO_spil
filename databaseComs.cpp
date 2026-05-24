@@ -296,12 +296,41 @@ void DatabaseComs::assignItemsToChars(std::vector<Character&> charList, std::vec
     }
 }
 
-void DatabaseComs::assignEntities(std::vector<Character&> charList, std::vector<int> charIdList){
-    return ;
+void DatabaseComs::assignEntities(std::vector<Character&> charList, std::vector<int> charIdList){ // Needs testing
+    QSqlQuery query;
+    EntityList el;
+    for (int i = 0; i < charIdList.size(); ++i){ // Run through each characterId
+        std::vector<int> entityIdx;
+        std::vector<int> entId;
+        std::string command = "SELECT entityIdx, entityId FROM Entity WHERE characterId = " + std::to_string(charIdList[i]);
+        query.exec();
+        while(query.next()){
+            entityIdx.push_back(query.value("entityIdx").toInt());
+            entId.push_back(query.value("entityId").toInt());
+        }
+        for (int j = 0; j < entityIdx.size(); ++j){ // Run through each entityId
+            Entity monster = el.list[j];
+            assignItemsToEnt(monster, entId[j]);
+            charList[i].addMonster(monster); // Add entity to character
+        }
+    }
 }
 
-void DatabaseComs::assignItemsToEnt(std::vector<Entity&> entList, std::vector<int> entIdList){
-    return ;
+void DatabaseComs::assignItemsToEnt(Entity& ent, int entId){ // Needs testing
+    QSqlQuery query;
+    std::string command = "SELECT itemIdx, itemKills, itemUses FROM EntItem WHERE entityId = " + std::to_string(entId);
+    std::vector<Item> items;
+    ItemList il;
+    query.exec();
+    while(query.next()){
+        Item ting = il.list[query.value("itemIdx").toInt()];
+        ting.addKill(query.value("itemKills").toInt());
+        ting.addUse(query.value("itemUses").toInt());
+        items.push_back(ting);
+    }
+    for (int i = 0; i < items.size(); ++i){ // Add each item to entity
+        ent.equipItem(items[i]);
+    }
 }
 
 int DatabaseComs::getMaxCharId(){
