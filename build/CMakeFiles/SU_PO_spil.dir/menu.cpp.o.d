@@ -158,9 +158,6 @@ CMakeFiles/SU_PO_spil.dir/menu.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/sammy/workspace/PO/Softwareudvikling_PO_spil/combat.h \
- /home/sammy/workspace/PO/Softwareudvikling_PO_spil/entityList.h \
- /home/sammy/workspace/PO/Softwareudvikling_PO_spil/cave.h \
  /home/sammy/workspace/PO/Softwareudvikling_PO_spil/databaseComs.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
@@ -566,4 +563,7 @@ CMakeFiles/SU_PO_spil.dir/menu.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqlresult.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqltablemodel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qtsqlversion.h \
- /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/combat.h \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/entityList.h \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/cave.h

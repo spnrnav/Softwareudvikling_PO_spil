@@ -2,6 +2,7 @@
 #define MENU_H
 #include "character.h"
 #include <iostream>
+#include "databaseComs.h"
 //#include "enemylist.h"
 
 class Menu
@@ -23,6 +24,7 @@ private:
     int inputInt;
     std::string inputStr;
     int deathCount = 0;
+    DatabaseComs db;
 };
 
 #endif // MENU_H

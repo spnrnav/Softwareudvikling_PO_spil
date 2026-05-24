@@ -18,6 +18,7 @@ DatabaseComs::DatabaseComs(std::string n) {
     else{
 	std::cout << "Database failed to open\n";
     }
+    createTables();
 }
 
 DatabaseComs::~DatabaseComs(){
@@ -48,7 +49,7 @@ void DatabaseComs::createTables(){
         "totalKillCount	INTEGER,"
         "itemMostUsed	TEXT,"
         "entityMostUsed	TEXT,"
-        "PRIMARY KEY(characterId),"
+        "PRIMARY KEY(characterId)"
         ");"; // 'karakter' used instead of 'character' to avoid potential keyword conflicts
     
     std::string entity =
@@ -63,14 +64,14 @@ void DatabaseComs::createTables(){
     std::string entItem =
         "CREATE TABLE IF NOT EXISTS EntItem ("
         "itemIdx	INTEGER,"
-        "characterId	INTEGER,"
+        "entityId	INTEGER,"
         "itemKills	INTEGER,"
-        "itemUses   INTEGER"
-        "FOREIGN KEY(entityId) REFERENCES Character(entityId)"
+        "itemUses   INTEGER,"
+        "FOREIGN KEY(entityId) REFERENCES Entity(entityId)"
         ");";
     
     std::string charItem =
-        "CREATE TABLE IF NOT EXISTS EntItem ("
+        "CREATE TABLE IF NOT EXISTS CharItem ("
         "itemIdx	INTEGER,"
         "characterId	INTEGER,"
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
@@ -100,6 +101,7 @@ void DatabaseComs::addSave(Character& karakter){
     query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
     //qDebug << query.exec();
     query.exec();
+    std::cout << "Character added\n";
 
     // Add monsters
     EntityList el;

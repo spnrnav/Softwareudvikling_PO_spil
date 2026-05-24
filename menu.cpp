@@ -2,7 +2,7 @@
 #include "combat.h"
 //#include "enemylist.h"
 #include "cave.h"
-#include "databaseComs.h"
+//#include "databaseComs.h"
 
 Menu::Menu() {}
 
@@ -126,7 +126,6 @@ void Menu::manage(Character& player){
 }
 
 void Menu::saveMenu(Character& player){
-    DatabaseComs db;
     bool menuActive = true;
     while (menuActive){
         std::cout << "----------Save menu----------\n";
