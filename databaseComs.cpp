@@ -158,79 +158,102 @@ void DatabaseComs::addSave(Character& karakter){
 }
 
 void DatabaseComs::updateSave(int charID, Character& karakter){
-    QSqlQuery query;
+    std::string command;
 
     // Update character
-    query.prepare("UPDATE Character "
+    /*query.prepare("UPDATE Character "
                   "SET characterName = (?)"
                   "SET totalKillCount = (?)"
                   "SET itemMostUsed = (?)"
                   "SET entityMostUsed = (?)"
-                  "WHERE characterId = (?)");
-    query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
-    query.addBindValue(karakter.getKillCount()); // totalKillCount
-    query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
-    query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
-    query.addBindValue(charID); // characterId
+                  "WHERE characterId = (?)");*/
+    command = "UPDATE Character ";
+    //query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
+    command += "SET characterName = " + karakter.getName(); // characterName
+    //query.addBindValue(karakter.getKillCount()); // totalKillCount
+    command += "SET totalKillCount = " + std::to_string(karakter.getKillCount()); // totalKillCount
+    //query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
+    command += "SET itemMostUsed = " + karakter.getMostUsedItem(); // itemMostUsed
+    //query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
+    command += "SET entityMostUsed = " + karakter.getMostUsedEntity(); // entityMostUsed
+    //query.addBindValue(charID); // characterId
+    command += "WHERE characterId = " + std::to_string(charID) + ");"; // characterId
     //qDebug << query.exec();
-    query.exec();
+    //query.exec();
+    execute(command);
 
     // Update monsters
     EntityList el;
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
-        query.prepare("UPDATE Entity "
+        /*query.prepare("UPDATE Entity "
                       "SET entityIdx = (?)"
                       "WHERE characterId = (?)"
-                      "AND WHERE entId = (?)");
+                      "AND WHERE entId = (?)");*/
+        command = "UPDATE Entity ";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
                 entIdx = j;
             }
         }
-        query.addBindValue(entIdx); // entityIdx
+        //query.addBindValue(entIdx); // entityIdx
+        command += "SET entityIdx = " + std::to_string(entIdx); // entityIdx
         int entId = 0; // must be the integer after the integer before
-        query.addBindValue(entId); // entityId
-        query.addBindValue(charID); // characterId
-        query.exec();
+        //query.addBindValue(charID); // characterId
+        command += "WHERE characterId = " + std::to_string(charID); // characterId
+        //query.addBindValue(entId); // entityId
+        command += "AND WHERE entId = " + std::to_string(entId) + ");"; // entityId
+        //query.exec();
+        execute(command);
 
         // Update monster items
         for (int k = 0; k < karakter.collection[i].getEquippedItems().size(); ++k){
-            query.prepare("UPDATE EntItem "
+            /*query.prepare("UPDATE EntItem "
                           "SET itemIdx = (?)"
                           "SET itemKills = (?)"
                           "SET itemUses = (?)"
                           "WHERE entityId = (?)"
-                          "AND WHERE characterId = (?)");
+                          "AND WHERE characterId = (?)");*/
+            command = "UPDATE EntItem ";
             int iteIdx;
             for (int j = 0; j < il.list.size(); ++j){
                 if (il.list[j].getName() == karakter.collection[i].getEquippedItems()[k].getName()){
                     iteIdx = j;
                 }
             }
-            query.addBindValue(iteIdx); // itemIdx
-            query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
-            query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
-            query.addBindValue(entId); // entityId
-            query.addBindValue(charID); // characterId
-            query.exec();
+            //query.addBindValue(iteIdx); // itemIdx
+            command += "SET itemIdx = " + std::to_string(iteIdx); // itemIdx
+            //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
+            command += "SET itemKills = " + karakter.collection[i].getEquippedItems()[j].getKills(); // itemKills
+            //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
+            command += "SET itemUses = " + karakter.collection[i].getEquippedItems()[j].getUses(); // itemKills
+            //query.addBindValue(entId); // entityId
+            command += "WHERE entityId = " + entId; // entityId
+            //query.addBindValue(charID); // characterId
+            command += "AND WHERE characterId = " + charID + ");"; // characterId
+            //query.exec();
+            execute(command);
         }
     }
     
     // Add character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
-        query.prepare("UPDATE CharItem "
+        /*query.prepare("UPDATE CharItem "
                       "SET itemIdx = (?)"
-                      "WHERE characterId = (?)");
+                      "WHERE characterId = (?)");*/
+        command = "UPDATE CharItem ";
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
             if (il.list[j].getName() == karakter.getItems()[i].getName()){
                 iteIdx = j;
             }
         }
-        query.addBindValue(iteIdx); // itemIdx
-        query.addBindValue(charID); // characterId
-        query.exec();
+        //query.addBindValue(iteIdx); // itemIdx
+        command += "SET itemIdx = " + iteIdx; // itemIdx
+        //query.addBindValue(charID); // characterId
+        command += "WHERE characterId = " + charID + ");"; // characterId
+        //query.exec();
+        execute(command);
     }
 }
