@@ -4,12 +4,12 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include "entityList.h"
-#include "itemList.h"
+#include "itemlist.h"
 
 DatabaseComs::DatabaseComs(std::string n) {
     fileName = n;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(n);
+    db.setDatabaseName(QString::fromStdString(n));
     std::cout << "Database opened\n";
 
     if (db.open()){
@@ -94,11 +94,12 @@ void DatabaseComs::addSave(Character& karakter){
                   "VALUES (?, ?, ?, ?, ?,)");
     int charIdx = 0; // must be the integer after the integer before
     query.addBindValue(charIdx); // characterId
-    query.addBindValue(karakter.getName()); // characterName
+    query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
     query.addBindValue(karakter.getKillCount()); // totalKillCount
-    query.addBindValue(karakter.getMostUsedItem()); // itemMostUsed
-    query.addBindValue(karakter.getMostUsedEntity()); // entityMostUsed
-    qDebug << query.exec();
+    query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
+    query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
+    //qDebug << query.exec();
+    query.exec();
 
     // Add monsters
     EntityList el;
@@ -142,7 +143,7 @@ void DatabaseComs::addSave(Character& karakter){
                       "VALUES (?, ?)");
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
-            if (il.list[j].getName() == karakter.getItems[i].getName()){
+            if (il.list[j].getName() == karakter.getItems()[i].getName()){
                 iteIdx = j;
             }
         }
@@ -162,12 +163,13 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                   "SET itemMostUsed = (?)"
                   "SET entityMostUsed = (?)"
                   "WHERE characterId = (?)");
-    query.addBindValue(karakter.getName()); // characterName
+    query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
     query.addBindValue(karakter.getKillCount()); // totalKillCount
-    query.addBindValue(karakter.getMostUsedItem()); // itemMostUsed
-    query.addBindValue(karakter.getMostUsedEntity()); // entityMostUsed
+    query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
+    query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
     query.addBindValue(charID); // characterId
-    qDebug << query.exec();
+    //qDebug << query.exec();
+    query.exec();
 
     // Update monsters
     EntityList el;
@@ -186,7 +188,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
         query.addBindValue(entIdx); // entityIdx
         int entId = 0; // must be the integer after the integer before
         query.addBindValue(entId); // entityId
-        query.addBindValue(charIdx); // characterId
+        query.addBindValue(charID); // characterId
         query.exec();
 
         // Update monster items
@@ -207,7 +209,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
             query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
             query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
             query.addBindValue(entId); // entityId
-            query.addBindValue(charIdx); // characterId
+            query.addBindValue(charID); // characterId
             query.exec();
         }
     }
@@ -219,12 +221,12 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                       "WHERE characterId = (?)");
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
-            if (il.list[j].getName() == karakter.getItems[i].getName()){
+            if (il.list[j].getName() == karakter.getItems()[i].getName()){
                 iteIdx = j;
             }
         }
         query.addBindValue(iteIdx); // itemIdx
-        query.addBindValue(charIdx); // characterId
+        query.addBindValue(charID); // characterId
         query.exec();
     }
 }

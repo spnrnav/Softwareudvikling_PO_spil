@@ -550,6 +550,9 @@ CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqltablemodel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qtsqlversion.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/character.h \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/entity.h \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/item.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/bits/basic_ios.h \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
@@ -559,4 +562,6 @@ CMakeFiles/SU_PO_spil.dir/databaseComs.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc
+ /usr/include/c++/11/bits/istream.tcc \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/entityList.h \
+ /home/sammy/workspace/PO/Softwareudvikling_PO_spil/itemlist.h
