@@ -274,9 +274,34 @@ std::vector<Character> DatabaseComs::getCharacters(){
     for (int i = 0; i < charIds.size(); ++i){
         charList.push_back(Character(charNames[i]));
         charList[i].addKill(killCounts[i]);
+        assignItemsToChars(charList, charIds); // Needs testing
     }
-    // TODO: Add items and entities to characters
+    // TODO: Add entities to characters
     return charList;
+}
+
+void DatabaseComs::assignItemsToChars(std::vector<Character&> charList, std::vector<int> charIdList){ // Needs testing
+    QSqlQuery query;
+    ItemList il;
+    for (int i = 0; i < charIdList.size(); ++i){
+        std::vector<int> itemIdx;
+        std::string command = "SELECT itemIdx FROM CharItem WHERE characterId = " + std::to_string(charIdList[i]);
+        query.exec();
+        while(query.next()){
+            itemIdx.push_back(query.value("itemIdx").toInt());
+        }
+        for (int j = 0; j < itemIdx.size(); ++j){
+            charList[i].addItem(il.list[j]);
+        }
+    }
+}
+
+void DatabaseComs::assignEntities(std::vector<Character&> charList, std::vector<int> charIdList){
+    return ;
+}
+
+void DatabaseComs::assignItemsToEnt(std::vector<Entity&> entList, std::vector<int> entIdList){
+    return ;
 }
 
 int DatabaseComs::getMaxCharId(){
