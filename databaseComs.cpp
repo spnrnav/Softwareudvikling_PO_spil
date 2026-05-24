@@ -257,3 +257,35 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
         execute(command);
     }
 }
+
+std::vector<Character> DatabaseComs::getCharacters(){
+    QSqlQuery query;
+    std::string command = "SELECT characterId, name, totalKillCount FROM Character";
+    std::vector<int> charIds;
+    std::vector<std::string> charNames;
+    std::vector<int> killCounts;
+    query.exec();
+    while(query.next()){
+        charIds.push_back(query.value("characterId").toInt());
+        charNames.push_back(query.value("name").toString().toStdString());
+        killCounts.push_back(query.value("totalKillCount").toInt());
+    }
+    std::vector<Character> charList;
+    for (int i = 0; i < charIds.size(); ++i){
+        charList.push_back(Character(charNames[i]));
+        charList[i].addKill(killCounts[i]);
+    }
+    // TODO: Add items and entities to characters
+    return charList;
+}
+
+int DatabaseComs::getMaxCharId(){
+    QSqlQuery query;
+    std::string command = "SELECT MAX(characterId) FROM Character";
+    int id -1;
+    query.exec();
+    while(query.next()){
+        int id = query.value(0).toInt();
+    }
+    return id;
+}

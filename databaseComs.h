@@ -19,7 +19,11 @@ public:
     void saveCharacter(Character&);
     void addSave(Character&);
     void updateSave(int, Character&);
-    std::vector<int> getCharacters(){return {0,0,0,0};}
+    std::vector<Character> getCharacters();
+    std::vector<Character> assignItemsToChars(std::vector<Character&>, std::vector<int>);
+    std::vector<Character> assignEntities(std::vector<Character&>, std::vector<int>);
+    std::vector<Entity> assignItemsToEnt(std::vector<Entity&>, std::vector<int>);
+    int getMaxCharId();
     ~DatabaseComs();
 private:
     std::string fileName;
