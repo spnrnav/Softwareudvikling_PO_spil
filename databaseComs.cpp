@@ -88,65 +88,41 @@ void DatabaseComs::saveCharacter(Character& karakter){
 }
 
 void DatabaseComs::addSave(Character& karakter){
-    //QSqlQuery query;
     std::string command;
 
     // Add character
-    /*query.prepare("INSERT INTO Character "
-                  "VALUES (?, ?, ?, ?, ?,)");
-    int charIdx = 0; // must be the integer after the integer before
-    query.addBindValue(charIdx); // characterId
-    query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
-    query.addBindValue(karakter.getKillCount()); // totalKillCount
-    query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
-    query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
-    //qDebug << query.exec();
-    query.exec();*/
     command = "INSERT INTO Character "
               "VALUES (";
     int charIdx = 0;
-    command += std::to_string(charIdx);
-    command += ", '";
-    command += karakter.getName();
-    command += "', ";
-    command += std::to_string(karakter.getKillCount());
-    command += ", '";
-    command += karakter.getMostUsedItem();
-    command += "', '";
-    command += karakter.getMostUsedEntity();
-    command += "');";
-    std::cout << command << "\n";
+    command += std::to_string(charIdx) + ", '"; // characterId
+    command += karakter.getName() + "', "; // characterName
+    command += std::to_string(karakter.getKillCount()) + ", '"; // totalKillCount
+    command += karakter.getMostUsedItem() + "', '"; // itemMostUsed
+    command += karakter.getMostUsedEntity() + "');"; // entityMostUsed
+    //std::cout << command << "\n";
     execute(command);
 
     // Add monsters
     EntityList el;
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
-        //query.prepare("INSERT INTO Entity "
-        //              "VALUES (?, ?, ?)");
         command = "INSERT INTO Entity "
                   "VALUES (";
         int entId = 0; // must be the integer after the integer before
-        //query.addBindValue(entId); // entityId
-        command += std::to_string(entId) + ", ";
-        //query.addBindValue(charIdx); // characterId
-        command += std::to_string(charIdx) + ", ";
+        command += std::to_string(entId) + ", "; // entityId
+        command += std::to_string(charIdx) + ", "; // characterId
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
                 entIdx = j;
             }
         }
-        //query.addBindValue(entIdx); // entityIdx
-        command += std::to_string(entIdx) + ");";
-        //query.exec();
-	std::cout << command << "\n";
+        command += std::to_string(entIdx) + ");"; // entityIdx
+	    //std::cout << command << "\n";
         execute(command);
 
         // Add monster items
         for (int j = 0; j < karakter.collection[i].getEquippedItems().size(); ++j){
-            //query.prepare("INSERT INTO EntItem "
-            //              "VALUES (?, ?, ?, ?)");
             command = "INSERT INTO EntItem "
                       "VALUES (";
             int iteIdx;
@@ -155,15 +131,10 @@ void DatabaseComs::addSave(Character& karakter){
                     iteIdx = k;
                 }
             }
-            //query.addBindValue(iteIdx); // itemIdx
-            command += std::to_string(iteIdx) + ", ";
-            //query.addBindValue(entId); // entityId
-            command += std::to_string(entId) + ", ";
-            //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
-            command += std::to_string(karakter.getItems()[i].getKills()) + ", ";
-            //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
-            command += std::to_string(karakter.getItems()[i].getUses()) + ");";
-            //query.exec();
+            command += std::to_string(iteIdx) + ", "; // itemIdx
+            command += std::to_string(entId) + ", "; // entityId
+            command += std::to_string(karakter.getItems()[i].getKills()) + ", "; // itemKills
+            command += std::to_string(karakter.getItems()[i].getUses()) + ");"; // itemUses
             std::cout << command << "\n";
             execute(command);
         }
@@ -171,8 +142,6 @@ void DatabaseComs::addSave(Character& karakter){
     
     // Add character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
-        //query.prepare("INSERT INTO CharItem "
-        //              "VALUES (?, ?)");
         command = "INSERT INTO CharItem "
                   "VALUES (";
         int iteIdx;
@@ -181,11 +150,8 @@ void DatabaseComs::addSave(Character& karakter){
                 iteIdx = j;
             }
         }
-        //query.addBindValue(iteIdx); // itemIdx
-        command += std::to_string(iteIdx) + ", ";
-        //query.addBindValue(charIdx); // characterId
-        command += std::to_string(charIdx) + ");";
-        //query.exec();
+        command += std::to_string(iteIdx) + ", "; // itemIdx
+        command += std::to_string(charIdx) + ");"; // characterId
         std::cout << command << "\n";
         execute(command);
     }
