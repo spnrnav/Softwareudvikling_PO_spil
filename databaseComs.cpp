@@ -46,11 +46,9 @@ void DatabaseComs::createTables(){
         "characterId	INTEGER,"
         "name	TEXT,"
         "totalKillCount	INTEGER,"
-        "itemMostUsed	INTEGER,"
-        "entityMostUsed	INTEGER,"
+        "itemMostUsed	TEXT,"
+        "entityMostUsed	TEXT,"
         "PRIMARY KEY(characterId),"
-        "FOREIGN KEY(entityMostUsed) REFERENCES Entity(entityIdx),"
-        "FOREIGN KEY(itemMostUsed) REFERENCES EntItem(itemIdx)"
         ");"; // 'karakter' used instead of 'character' to avoid potential keyword conflicts
     
     std::string entity =
@@ -97,9 +95,9 @@ void DatabaseComs::addSave(Character& karakter){
     int charIdx = 0; // must be the integer after the integer before
     query.addBindValue(charIdx); // characterId
     query.addBindValue(karakter.getName()); // characterName
-    //query.addBindValue(karakter.getKillCount()); // totalKillCount
-    //query.addBindValue(karakter.getItemMostUsed()); // itemMostUsed
-    //query.addBindValue(karakter.getEntityMostUsed()); // entityMostUsed
+    query.addBindValue(karakter.getKillCount()); // totalKillCount
+    query.addBindValue(karakter.getMostUsedItem()); // itemMostUsed
+    query.addBindValue(karakter.getMostUsedEntity()); // entityMostUsed
     qDebug << query.exec();
 
     // Add monsters
@@ -131,9 +129,9 @@ void DatabaseComs::addSave(Character& karakter){
                 }
             }
             query.addBindValue(iteIdx); // itemIdx
-            query.addBindValue(entId); // entityId (must be -1 for unassigned items)
-            //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
-            //query.addBindValue(karakter.getItems()[i].getItemUses()); // itemUses
+            query.addBindValue(entId); // entityId
+            query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
+            query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
             query.exec();
         }
     }
@@ -154,7 +152,7 @@ void DatabaseComs::addSave(Character& karakter){
     }
 }
 
-void DatabaseComs::updateSave(int charID, Character& kararkter){
+void DatabaseComs::updateSave(int charID, Character& karakter){
     QSqlQuery query;
 
     // Update character
@@ -165,9 +163,9 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
                   "SET entityMostUsed = (?)"
                   "WHERE characterId = (?)");
     query.addBindValue(karakter.getName()); // characterName
-    //query.addBindValue(karakter.getKillCount()); // totalKillCount
-    //query.addBindValue(karakter.getItemMostUsed()); // itemMostUsed
-    //query.addBindValue(karakter.getEntityMostUsed()); // entityMostUsed
+    query.addBindValue(karakter.getKillCount()); // totalKillCount
+    query.addBindValue(karakter.getMostUsedItem()); // itemMostUsed
+    query.addBindValue(karakter.getMostUsedEntity()); // entityMostUsed
     query.addBindValue(charID); // characterId
     qDebug << query.exec();
 
@@ -206,9 +204,9 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
                 }
             }
             query.addBindValue(iteIdx); // itemIdx
-            //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
-            //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemUses
-            query.addBindValue(entId); // entityId (must be -1 for unassigned items)
+            query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
+            query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
+            query.addBindValue(entId); // entityId
             query.addBindValue(charIdx); // characterId
             query.exec();
         }
@@ -218,7 +216,7 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
     for (int i = 0; i < karakter.getItems().size(); ++i){
         query.prepare("UPDATE CharItem "
                       "SET itemIdx = (?)"
-                      "WHERE charactewrId = (?)");
+                      "WHERE characterId = (?)");
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
             if (il.list[j].getName() == karakter.getItems[i].getName()){

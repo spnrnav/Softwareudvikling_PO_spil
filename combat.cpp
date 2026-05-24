@@ -143,6 +143,7 @@ void Combat::battle(Character& player, int monsterIdx){
             }
         }
         if (enemy.getHP() <= 0){
+            player.addKill();
             break;
         }
     }
