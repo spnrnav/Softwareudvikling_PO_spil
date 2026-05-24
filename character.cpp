@@ -62,4 +62,16 @@ std::string Character::getMostUsedItem(){
     return mostUsedItem;
 }
 
+std::string Character::getMostUsedEntity(){
+    int mostUses = -1;
+    mostUsedEntity = "N/A";
+    for (int i = 0; i < collection.size(); ++i){
+        if (mostUses < collection[i].getUses()){
+            mostUses = collection[i].getUses();
+            mostUsedEntity = collection[i].getName();
+        }
+    }
+    return mostUsedEntity;
+}
+
 Character::~Character(){}

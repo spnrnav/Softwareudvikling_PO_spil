@@ -129,6 +129,7 @@ void Combat::battle(Character& player, int monsterIdx){
     Entity enemy = monster.list[monsterIdx-1];
     int turnOrder = generateRandomInt();
     for (int i = 0; i < player.collection.size(); i++){ // Run through all player monsters
+        player.collection[i].addUses();
         while ((player.collection[i].getHP() > 0) and (enemy.getHP() > 0)){ // check health of ally and enemy
             //std::cout << "ally " << i << std::endl;
             //turnOrder = generateRandomInt();

@@ -21,6 +21,7 @@ public:
     int getKillCount(){return killCount;}
     void addKill(int kills = 1){killCount += kills;}
     std::string getMostUsedItem();
+    std::string getMostUsedEntity();
     ~Character();
 private:
     int inputIdx;
@@ -28,6 +29,7 @@ private:
     std::vector<Item> items;
     int killCount = 0;
     std::string mostUsedItem;
+    std::string mostUsedEntity;
 };
 
 #endif // CHARACTER_H

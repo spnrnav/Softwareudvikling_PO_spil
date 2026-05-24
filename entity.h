@@ -32,6 +32,9 @@ public:
     void resetStatus();
     std::vector<std::string> getStatusList(){return statusList;}
 
+    int getUses(){return uses;}
+    void addUses(int newUses = 1){uses += newUses;}
+
     ~Entity();
 private:
     std::string name;
@@ -43,6 +46,7 @@ private:
     int strength = 0;
     std::vector<Item> equippedItems;
     std::vector<std::string> statusList;
+    int uses = 0;
 };
 
 #endif // ENTITY_H
