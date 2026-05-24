@@ -131,7 +131,7 @@ void Menu::saveMenu(Character& player){
     while (menuActive){
         std::cout << "----------Save menu----------\n";
         for (int i = 0; i < db.getCharacters.size(); ++i){ // Display all saves
-            std::cout << i << ": " << db.getCharacters[i].getName() << "\n";
+            //std::cout << i << ": " << db.getCharacters[i].getName() << "\n";
         }
         std::cout << db.getCharacters.size() << ": New save\n";
         std::cout << db.getCharacters.size()+1 << ": Quit menu\n" + lineSeperator;

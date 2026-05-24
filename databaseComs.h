@@ -19,6 +19,7 @@ public:
     void saveCharacter(Character&);
     void addSave(Character&);
     void updateSave(int, Character&);
+    std::vector<int> getCharacters(){return {0,0,0,0};}
     ~DatabaseComs();
 private:
     std::string fileName;
