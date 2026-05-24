@@ -13,6 +13,7 @@ public:
     void main();
     void sub(Character&);
     void manage(Character&);
+    void saveMenu(Character&);
     void combat(Character&);
     void caveCombat(Character&);
     void updateDeathcount(Character&);

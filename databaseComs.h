@@ -11,7 +11,7 @@
 class DatabaseComs
 {
 public:
-    DatabaseComs(std::string);
+    DatabaseComs(std::string n = "database.db");
     std::string getFileName(){return fileName;}
     void setFileName(std::string nNew){fileName = nNew;}
     bool execute(std::string);

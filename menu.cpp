@@ -2,6 +2,7 @@
 #include "combat.h"
 //#include "enemylist.h"
 #include "cave.h"
+#include "databaseComs.h"
 
 Menu::Menu() {}
 
@@ -52,7 +53,8 @@ void Menu::sub(Character& character){
                   << "1: Fight monster\n"
                   << "2: Fight cave\n"
                   << "3: Manage monsters\n"
-                  << "4: Quit adventure\n" + lineSeperator
+                  << "4: Save progress\n"
+                  << "5: Quit adventure\n" + lineSeperator
                   << "Choose action: ";
         getIntInput();
 
@@ -65,7 +67,10 @@ void Menu::sub(Character& character){
         else if (inputInt == 3){ // Manage monsters
             manage(character);
         }
-        else if (inputInt == 4){ // Quit sub menu
+        else if (inputInt == 4){
+            saveMenu(character);
+        }
+        else if (inputInt == 5){ // Quit sub menu
             menuActive = false;
         }
         else{
@@ -117,6 +122,28 @@ void Menu::manage(Character& player){
         else{
             std::cout << "Invallid input\n";
         }
+    }
+}
+
+void Menu::saveMenu(Character& player){
+    DatabaseComs db;
+    bool menuActive = true;
+    while (menuActive){
+        std::cout << "----------Save menu----------\n";
+        for (int i = 0; i < db.getCharacters.size(); ++i){ // Display all saves
+            std::cout << i << ": " << db.getCharacters[i].getName() << "\n";
+        }
+        std::cout << db.getCharacters.size() << ": New save\n";
+        std::cout << db.getCharacters.size()+1 << ": Quit menu\n" + lineSeperator;
+        std::cout << "Choose save to overwrite: ";
+        getIntInput();
+        if ((inputInt > 0) and (inputInt < db.getCharacters.size())){ // Replace save
+            db.updateSave(inputInt,player);
+        }
+        else if (inputInt == db.getCharacters().size()){ // Add save
+            db.addSave(player);
+        }
+        break; // Exit menu automatically
     }
 }
 

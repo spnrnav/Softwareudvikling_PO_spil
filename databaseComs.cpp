@@ -9,7 +9,7 @@
 DatabaseComs::DatabaseComs(std::string n) {
     fileName = n;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("database.db");
+    db.setDatabaseName(n);
     std::cout << "Database opened\n";
 
     if (db.open()){
@@ -50,7 +50,7 @@ void DatabaseComs::createTables(){
         "entityMostUsed	INTEGER,"
         "PRIMARY KEY(characterId),"
         "FOREIGN KEY(entityMostUsed) REFERENCES Entity(entityIdx),"
-        "FOREIGN KEY(itemMostUsed) REFERENCES Item(itemIdx)"
+        "FOREIGN KEY(itemMostUsed) REFERENCES EntItem(itemIdx)"
         ");"; // 'karakter' used instead of 'character' to avoid potential keyword conflicts
     
     std::string entity =
@@ -62,17 +62,26 @@ void DatabaseComs::createTables(){
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
         ");";
 
-    std::string item =
-        "CREATE TABLE IF NOT EXISTS Item ("
+    std::string entItem =
+        "CREATE TABLE IF NOT EXISTS EntItem ("
         "itemIdx	INTEGER,"
         "characterId	INTEGER,"
         "itemKills	INTEGER,"
+        "itemUses   INTEGER"
+        "FOREIGN KEY(entityId) REFERENCES Character(entityId)"
+        ");";
+    
+    std::string charItem =
+        "CREATE TABLE IF NOT EXISTS EntItem ("
+        "itemIdx	INTEGER,"
+        "characterId	INTEGER,"
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
         ");";
     
     execute(karakter);
     execute(entity);
-    execute(item);
+    execute(entItem);
+    execute(charItem);
 }
 
 void DatabaseComs::saveCharacter(Character& karakter){
@@ -114,7 +123,7 @@ void DatabaseComs::addSave(Character& karakter){
         // Add monster items
         for (int j = 0; j < karakter.collection[i].getEquippedItems().size(); ++j){
             query.prepare("INSERT INTO EntItem "
-                          "VALUES (?, ?, ?)");
+                          "VALUES (?, ?, ?, ?)");
             int iteIdx;
             for (int k = 0; k < il.list.size(); ++k){
                 if (il.list[k].getName() == karakter.collection[i].getEquippedItems()[j].getName()){
@@ -124,6 +133,7 @@ void DatabaseComs::addSave(Character& karakter){
             query.addBindValue(iteIdx); // itemIdx
             query.addBindValue(entId); // entityId (must be -1 for unassigned items)
             //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
+            //query.addBindValue(karakter.getItems()[i].getItemUses()); // itemUses
             query.exec();
         }
     }
@@ -131,7 +141,7 @@ void DatabaseComs::addSave(Character& karakter){
     // Add character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
         query.prepare("INSERT INTO CharItem "
-                      "VALUES (?, ?, ?)");
+                      "VALUES (?, ?)");
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
             if (il.list[j].getName() == karakter.getItems[i].getName()){
@@ -140,7 +150,6 @@ void DatabaseComs::addSave(Character& karakter){
         }
         query.addBindValue(iteIdx); // itemIdx
         query.addBindValue(charIdx); // characterId
-        //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
         query.exec();
     }
 }
@@ -186,7 +195,8 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
         for (int k = 0; k < karakter.collection[i].getEquippedItems().size(); ++k){
             query.prepare("UPDATE EntItem "
                           "SET itemIdx = (?)"
-                          "SET itemKilss = (?)"
+                          "SET itemKills = (?)"
+                          "SET itemUses = (?)"
                           "WHERE entityId = (?)"
                           "AND WHERE characterId = (?)");
             int iteIdx;
@@ -197,6 +207,7 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
             }
             query.addBindValue(iteIdx); // itemIdx
             //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
+            //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemUses
             query.addBindValue(entId); // entityId (must be -1 for unassigned items)
             query.addBindValue(charIdx); // characterId
             query.exec();
@@ -207,7 +218,6 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
     for (int i = 0; i < karakter.getItems().size(); ++i){
         query.prepare("UPDATE CharItem "
                       "SET itemIdx = (?)"
-                      "SET itemKills = (?)"
                       "WHERE charactewrId = (?)");
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
@@ -216,7 +226,6 @@ void DatabaseComs::updateSave(int charID, Character& kararkter){
             }
         }
         query.addBindValue(iteIdx); // itemIdx
-        //query.addBindValue(karakter.getItems()[i].getKillCount()); // itemKills
         query.addBindValue(charIdx); // characterId
         query.exec();
     }
