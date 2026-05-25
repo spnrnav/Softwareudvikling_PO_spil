@@ -182,6 +182,20 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
     //query.exec();
     execute(command);
 
+    // Remove monster items
+    command = "DELETE FROM EntItem WHERE entityId = (SELECT entityId FROM Entity WHERE characterId = ";
+    command += std::to_string(charID) + "AND entityId = ";
+    for (int i = 1; i < 9; ++i){
+        std::string newCommand = command + std::to_string(i) + ");";
+        execute(newCommand);
+    }
+
+    // Remove monsters and items
+    command = "DELETE FROM Entity WHERE characterId = " + std::to_string(charID);
+    execute(command);
+    command = "DELETE FROM CharItem WHERE characterId = " + std::to_string(charID);
+    execute(command);
+
     // Update monsters
     EntityList el;
     ItemList il;
@@ -190,20 +204,20 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                       "SET entityIdx = (?)"
                       "WHERE characterId = (?)"
                       "AND WHERE entId = (?)");*/
-        command = "UPDATE Entity ";
+        command = "INSER INTO Entity VALUES (";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
                 entIdx = j;
             }
         }
-        //query.addBindValue(entIdx); // entityIdx
-        command += "SET entityIdx = " + std::to_string(entIdx); // entityIdx
         int entId = 0; // must be the integer after the integer before
-        //query.addBindValue(charID); // characterId
-        command += "WHERE characterId = " + std::to_string(charID); // characterId
         //query.addBindValue(entId); // entityId
-        command += "AND WHERE entId = " + std::to_string(entId) + ");"; // entityId
+        command += std::to_string(entId) + ", "; // entityId
+        //query.addBindValue(charID); // characterId
+        command += std::to_string(charID) + ", "; // characterId
+        //query.addBindValue(entIdx); // entityIdx
+        command += std::to_string(entIdx) ");"; // entityIdx
         //query.exec();
         execute(command);
 
@@ -215,7 +229,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                           "SET itemUses = (?)"
                           "WHERE entityId = (?)"
                           "AND WHERE characterId = (?)");*/
-            command = "UPDATE EntItem ";
+            command = "INSERT INTO EntItem VALUES (";
             int iteIdx;
             for (int j = 0; j < il.list.size(); ++j){
                 if (il.list[j].getName() == karakter.collection[i].getEquippedItems()[k].getName()){
@@ -223,26 +237,24 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                 }
             }
             //query.addBindValue(iteIdx); // itemIdx
-            command += "SET itemIdx = " + std::to_string(iteIdx); // itemIdx
-            //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
-            command += "SET itemKills = " + karakter.collection[i].getEquippedItems()[j].getKills(); // itemKills
-            //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
-            command += "SET itemUses = " + karakter.collection[i].getEquippedItems()[j].getUses(); // itemKills
-            //query.addBindValue(entId); // entityId
-            command += "WHERE entityId = " + entId; // entityId
+            command += std::to_string(iteIdx) + ", "; // itemIdx
             //query.addBindValue(charID); // characterId
-            command += "AND WHERE characterId = " + charID + ");"; // characterId
+            command += + std::to_string(entId) + ", "; // characterId
+            //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
+            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getKills()) + ", "; // itemKills
+            //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
+            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getUses()) + ");"; // itemKills
             //query.exec();
             execute(command);
         }
     }
     
-    // Add character items
+    // Update character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
         /*query.prepare("UPDATE CharItem "
                       "SET itemIdx = (?)"
                       "WHERE characterId = (?)");*/
-        command = "UPDATE CharItem ";
+        command = "INSERT INTO CharItem VALUES (";
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
             if (il.list[j].getName() == karakter.getItems()[i].getName()){
@@ -250,9 +262,9 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
             }
         }
         //query.addBindValue(iteIdx); // itemIdx
-        command += "SET itemIdx = " + iteIdx; // itemIdx
+        command += std::to_string(iteIdx) + ", "; // itemIdx
         //query.addBindValue(charID); // characterId
-        command += "WHERE characterId = " + charID + ");"; // characterId
+        command += std::to_string(charID) + ");"; // characterId
         //query.exec();
         execute(command);
     }
