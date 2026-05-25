@@ -22,7 +22,7 @@ public:
     std::vector<Character> getCharacters();
     void assignItemsToChars(std::vector<Character&>, std::vector<int>);
     void assignEntities(std::vector<Character&>, std::vector<int>);
-    void assignItemsToEnt(std::vector<Entity&>, std::vector<int>);
+    void assignItemsToEnt(Entity&, int);
     int getMaxCharId();
     ~DatabaseComs();
 private:
