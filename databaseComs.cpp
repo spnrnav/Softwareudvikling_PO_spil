@@ -207,22 +207,22 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                       "SET entityIdx = (?)"
                       "WHERE characterId = (?)"
                       "AND WHERE entId = (?)");*/
-        command = "INSER INTO Entity VALUES (";
+        command = "INSERT INTO Entity (characterId, entityIdx)  VALUES ("; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
                 entIdx = j;
             }
         }
-        int entId = 0; // must be the integer after the integer before
+        //int entId = 0; // must be the integer after the integer before
         //query.addBindValue(entId); // entityId
-        command += std::to_string(entId) + ", "; // entityId
+        //command += std::to_string(entId) + ", "; // entityId
         //query.addBindValue(charID); // characterId
         command += std::to_string(charID) + ", "; // characterId
         //query.addBindValue(entIdx); // entityIdx
         command += std::to_string(entIdx) + ");"; // entityIdx
         //query.exec();
-        execute(command);
+        int entId = execute(command);
 
         // Update monster items
         for (int k = 0; k < karakter.collection[i].getEquippedItems().size(); ++k){
