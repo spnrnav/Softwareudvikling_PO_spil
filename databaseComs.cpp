@@ -136,8 +136,8 @@ void DatabaseComs::addSave(Character& karakter){
             }
             command += std::to_string(iteIdx) + ", "; // itemIdx
             command += std::to_string(entId) + ", "; // entityId
-            command += std::to_string(karakter.getItems()[i].getKills()) + ", "; // itemKills
-            command += std::to_string(karakter.getItems()[i].getUses()) + ");"; // itemUses
+            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getKills()) + ", "; // itemKills
+            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getUses()) + ");"; // itemUses
             std::cout << command << "\n";
             execute(command);
         }
