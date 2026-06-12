@@ -348,7 +348,7 @@ void DatabaseComs::assignItemsToEnt(Entity& ent, int entId){ // Needs testing
 int DatabaseComs::getMaxCharId(){
     QSqlQuery query;
     std::string command = "SELECT MAX(characterId) FROM Character";
-    int id -1;
+    int id = -1;
     query.exec();
     while(query.next()){
         int id = query.value(0).toInt();
