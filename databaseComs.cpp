@@ -155,7 +155,7 @@ void DatabaseComs::addSave(Character& karakter){
         }
         command += std::to_string(iteIdx) + ", "; // itemIdx
         command += std::to_string(charIdx) + ");"; // characterId
-        std::cout << command << "\n";
+        //std::cout << command << "\n";
         execute(command);
     }
 }
