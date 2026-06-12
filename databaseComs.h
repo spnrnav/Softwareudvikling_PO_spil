@@ -14,7 +14,7 @@ public:
     DatabaseComs(std::string n = "database.db");
     std::string getFileName(){return fileName;}
     void setFileName(std::string nNew){fileName = nNew;}
-    bool execute(std::string);
+    int execute(std::string);
     void createTables();
     void saveCharacter(Character&);
     void addSave(Character&);
