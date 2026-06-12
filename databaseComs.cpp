@@ -217,7 +217,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
         //query.addBindValue(charID); // characterId
         command += std::to_string(charID) + ", "; // characterId
         //query.addBindValue(entIdx); // entityIdx
-        command += std::to_string(entIdx) ");"; // entityIdx
+        command += std::to_string(entIdx) + ");"; // entityIdx
         //query.exec();
         execute(command);
 
@@ -239,11 +239,11 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
             //query.addBindValue(iteIdx); // itemIdx
             command += std::to_string(iteIdx) + ", "; // itemIdx
             //query.addBindValue(charID); // characterId
-            command += + std::to_string(entId) + ", "; // characterId
+            command += std::to_string(entId) + ", "; // characterId
             //query.addBindValue(karakter.getItems()[i].getKills()); // itemKills
-            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getKills()) + ", "; // itemKills
+            command += std::to_string(karakter.collection[i].getEquippedItems()[k].getKills()) + ", "; // itemKills
             //query.addBindValue(karakter.getItems()[i].getUses()); // itemUses
-            command += std::to_string(karakter.collection[i].getEquippedItems()[j].getUses()) + ");"; // itemKills
+            command += std::to_string(karakter.collection[i].getEquippedItems()[k].getUses()) + ");"; // itemKills
             //query.exec();
             execute(command);
         }
