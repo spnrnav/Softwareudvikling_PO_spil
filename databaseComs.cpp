@@ -10,10 +10,10 @@ DatabaseComs::DatabaseComs(std::string n) {
     fileName = n;
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(QString::fromStdString(n));
-    std::cout << "Database opened\n";
+    //std::cout << "Database opened\n";
 
     if (db.open()){
-    	std::cout << "Database opened\n";
+    	//std::cout << "Database opened\n";
     }
     else{
 	std::cout << "Database failed to open\n";
@@ -24,7 +24,7 @@ DatabaseComs::DatabaseComs(std::string n) {
 DatabaseComs::~DatabaseComs(){
     if(db.isOpen()){
         db.close();
-        std::cout << "Database closed\n";
+        // std::cout << "Database closed\n";
     }
 }
 
@@ -207,7 +207,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                       "SET entityIdx = (?)"
                       "WHERE characterId = (?)"
                       "AND WHERE entId = (?)");*/
-        command = "INSERT INTO Entity (characterId, entityIdx)  VALUES ("; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        command = "INSERT INTO Entity (characterId, entityIdx)  VALUES (";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
