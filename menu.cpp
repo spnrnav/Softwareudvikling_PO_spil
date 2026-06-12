@@ -136,7 +136,7 @@ void Menu::saveMenu(Character& player){
         std::cout << db.getCharacters().size()+1 << ": Quit menu\n" + lineSeperator;
         std::cout << "Choose save to overwrite: ";
         getIntInput();
-        if ((inputInt >= 0) and (inputInt < db.getCharacters().size())){ // Replace save
+        if ((inputInt > 0) and (inputInt < db.getCharacters().size())){ // Replace save
             db.updateSave(inputInt,player);
         }
         else if (inputInt == db.getCharacters().size()){ // Add save
