@@ -292,7 +292,7 @@ std::vector<Character> DatabaseComs::getCharacters(){
     return charList;
 }
 
-void DatabaseComs::assignItemsToChars(std::vector<Character&> charList, std::vector<int> charIdList){ // Needs testing
+void DatabaseComs::assignItemsToChars(std::vector<Character>& charList, std::vector<int> charIdList){ // Needs testing
     QSqlQuery query;
     ItemList il;
     for (int i = 0; i < charIdList.size(); ++i){
@@ -308,7 +308,7 @@ void DatabaseComs::assignItemsToChars(std::vector<Character&> charList, std::vec
     }
 }
 
-void DatabaseComs::assignEntities(std::vector<Character&> charList, std::vector<int> charIdList){ // Needs testing
+void DatabaseComs::assignEntities(std::vector<Character>& charList, std::vector<int> charIdList){ // Needs testing
     QSqlQuery query;
     EntityList el;
     for (int i = 0; i < charIdList.size(); ++i){ // Run through each characterId
