@@ -75,8 +75,9 @@ void Menu::sub(Character& character){
                   << "1: Fight monster\n"
                   << "2: Fight cave\n"
                   << "3: Manage monsters\n"
-                  << "4: Save progress\n"
-                  << "5: Quit adventure\n" + lineSeperator
+                  << "4: Statistics\n"
+                  << "5: Save progress\n"
+                  << "6: Quit adventure\n" + lineSeperator
                   << "Choose action: ";
         getIntInput();
 
@@ -90,9 +91,12 @@ void Menu::sub(Character& character){
             manage(character);
         }
         else if (inputInt == 4){
+            displayStatistics(character);
+        }
+        else if (inputInt == 5){
             saveMenu(character);
         }
-        else if (inputInt == 5){ // Quit sub menu
+        else if (inputInt == 6){ // Quit sub menu
             menuActive = false;
         }
         else{
@@ -145,6 +149,15 @@ void Menu::manage(Character& player){
             std::cout << "Invallid input\n";
         }
     }
+}
+
+void Menu::displayStatistics(Character& player){
+    std::cout << "----------Statistics---------\n"
+              << "Name:              " << player.getName() << "\n"
+              << "Kills:             " << std::to_string(player.getKillCount()) << "\n"
+              << "Most used monster: " << player.getMostUsedEntity() << "\n"
+              << "Most used item:    " << player.getMostUsedItem() << "\n";
+    std::cout << lineSeperator;
 }
 
 void Menu::saveMenu(Character& player){
