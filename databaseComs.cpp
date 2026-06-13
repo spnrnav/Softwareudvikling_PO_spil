@@ -95,7 +95,7 @@ void DatabaseComs::addSave(Character& karakter){
     //int charIdx = 0;
     //command += std::to_string(charIdx) + ", '"; // characterId
     command += karakter.getName() + "', "; // characterName
-    command += std::to_string(karakter.getKillCount()) + ", "; // totalKillCount
+    command += std::to_string(karakter.getKillCount()) + ");"; // totalKillCount
     //command += karakter.getMostUsedItem() + "', '"; // itemMostUsed
     //command += karakter.getMostUsedEntity() + "');"; // entityMostUsed
     //std::cout << command << "\n";
