@@ -287,7 +287,8 @@ std::vector<Character> DatabaseComs::getCharacters(){
     }
     std::vector<Character> charList;
     for (int i = 0; i < charIds.size(); ++i){ // build characters
-        charList.push_back(Character(charNames[i]));
+        Character newChar;
+        charList.push_back(newChar.setName(charNames[i]));
         charList[i].addKill(killCounts[i]);
         assignItemsToChars(charList, charIds); // Add items to character // Needs testing
         assignEntities(charList, charIds); // Add allies to character // Needs testing
