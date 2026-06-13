@@ -156,7 +156,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
     // Update character
     command = "UPDATE Character ";
     command += "SET name = '" + karakter.getName() + "', "; // characterName
-    command += "totalKillCount = " + std::to_string(karakter.getKillCount()); // totalKillCount
+    command += "totalKillCount = " + std::to_string(karakter.getKillCount()) + " "; // totalKillCount
     command += "WHERE characterId = " + std::to_string(charID) + ";"; // characterId
     execute(command);
 
