@@ -133,14 +133,14 @@ void Menu::saveMenu(Character& player){
         for (int i = 0; i < saves.size(); ++i){ // Display all saves
             std::cout << i << ": " << saves[i].getName() << "\n";
         }
-        std::cout << saves.size() << ": New save\n";
-        std::cout << saves.size()+1 << ": Quit menu\n" + lineSeperator;
+        std::cout << saves.size()+1 << ": New save\n";
+        std::cout << 0 << ": Quit menu\n" + lineSeperator;
         std::cout << "Choose save to overwrite: ";
         getIntInput();
         if ((saves.size() != 0) and (inputInt > 0) and (inputInt < saves.size())){ // Replace save
             db.updateSave(inputInt,player);
         }
-        else if (inputInt == saves.size()){ // Add save
+        else if (inputInt == (saves.size()+1)){ // Add save
             db.addSave(player);
         }
         break; // Exit menu automatically
