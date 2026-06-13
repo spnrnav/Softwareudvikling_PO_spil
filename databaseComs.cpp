@@ -95,7 +95,7 @@ void DatabaseComs::addSave(Character& karakter){
     //int charIdx = 0;
     //command += std::to_string(charIdx) + ", '"; // characterId
     command += karakter.getName() + "', "; // characterName
-    command += std::to_string(karakter.getKillCount()) + ", '"; // totalKillCount
+    command += std::to_string(karakter.getKillCount()) + ", "; // totalKillCount
     //command += karakter.getMostUsedItem() + "', '"; // itemMostUsed
     //command += karakter.getMostUsedEntity() + "');"; // entityMostUsed
     //std::cout << command << "\n";
@@ -201,10 +201,6 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
     EntityList el;
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
-        /*query.prepare("UPDATE Entity "
-                      "SET entityIdx = (?)"
-                      "WHERE characterId = (?)"
-                      "AND WHERE entId = (?)");*/
         command = "INSERT INTO Entity (characterId, entityIdx)  VALUES (";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
@@ -225,12 +221,6 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
 
         // Update monster items
         for (int k = 0; k < karakter.collection[i].getEquippedItems().size(); ++k){
-            /*query.prepare("UPDATE EntItem "
-                          "SET itemIdx = (?)"
-                          "SET itemKills = (?)"
-                          "SET itemUses = (?)"
-                          "WHERE entityId = (?)"
-                          "AND WHERE characterId = (?)");*/
             command = "INSERT INTO EntItem VALUES (";
             int iteIdx;
             for (int j = 0; j < il.list.size(); ++j){
@@ -253,9 +243,6 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
     
     // Update character items
     for (int i = 0; i < karakter.getItems().size(); ++i){
-        /*query.prepare("UPDATE CharItem "
-                      "SET itemIdx = (?)"
-                      "WHERE characterId = (?)");*/
         command = "INSERT INTO CharItem VALUES (";
         int iteIdx;
         for (int j = 0; j < il.list.size(); ++j){
@@ -293,7 +280,6 @@ std::vector<Character> DatabaseComs::getCharacters(){
     }
     assignItemsToChars(charList, charIds); // Add items to character // Needs testing
     assignEntities(charList, charIds); // Add allies to character // Needs testing
-    // TODO: Add entities to characters
     return charList;
 }
 
