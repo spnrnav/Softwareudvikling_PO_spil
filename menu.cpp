@@ -49,19 +49,20 @@ void Menu::main(){
 void Menu::loadMenu(){
     bool menuActive = true;
     while (menuActive){
-        std::cout << "----------Save menu----------\n";
+        std::cout << "----------Load menu----------\n";
         std::vector<Character> saves = db.getCharacters();
         for (int i = 1; i <= saves.size(); ++i){ // Display all saves
             std::cout << i << ": " << saves[i-1].getName() << "\n";
+        }
+        if (saves.size() == 0){
+            std::cout << "No Saves Detected\n" + lineSeperator;
+            break;
         }
         std::cout << 0 << ": Quit menu\n" + lineSeperator;
         std::cout << "Choose save to load: ";
         getIntInput();
         if ((saves.size() != 0) and (inputInt > 0) and (inputInt <= saves.size())){
             sub(saves[inputInt-1]);
-        }
-        else if (saves.size() == 0){
-            std::cout << "No Saves Detected\n" + lineSeperator;
         }
         break;
     }
