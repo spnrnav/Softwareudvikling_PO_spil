@@ -9,6 +9,7 @@ class Character
 public:
     Character();
     Character(std::string);
+    void setName(std::string newName){name = newName;}
     std::string getName();
     bool collectionLimit();
     void addMonster(Entity);
