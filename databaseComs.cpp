@@ -289,7 +289,8 @@ std::vector<Character> DatabaseComs::getCharacters(){
     for (int i = 0; i < charIds.size(); ++i){ // build characters
         charList.push_back(Character(charNames[i]));
         charList[i].addKill(killCounts[i]);
-        assignItemsToChars(charList, charIds); // Needs testing
+        assignItemsToChars(charList, charIds); // Add items to character // Needs testing
+        assignEntities(charList, charIds); // Add allies to character // Needs testing
     }
     // TODO: Add entities to characters
     return charList;
@@ -320,8 +321,8 @@ void DatabaseComs::assignEntities(std::vector<Character>& charList, std::vector<
         std::string command = "SELECT entityIdx, entityId FROM Entity WHERE characterId = " + std::to_string(charIdList[i]);
         query.exec();
         while(query.next()){
-            entityIdx.push_back(query.value("entityIdx").toInt());
-            entId.push_back(query.value("entityId").toInt());
+            entityIdx.push_back(query.value(0).toInt()); // entityIdx
+            entId.push_back(query.value(1).toInt()); // entityId
         }
         for (int j = 0; j < entityIdx.size(); ++j){ // Run through each entityId
             Entity monster = el.list[j];
@@ -338,9 +339,9 @@ void DatabaseComs::assignItemsToEnt(Entity& ent, int entId){ // Needs testing
     ItemList il;
     query.exec();
     while(query.next()){
-        Item ting = il.list[query.value("itemIdx").toInt()];
-        ting.addKill(query.value("itemKills").toInt());
-        ting.addUse(query.value("itemUses").toInt());
+        Item ting = il.list[query.value(0).toInt()]; // itemIdx
+        ting.addKill(query.value(1).toInt()); // itemKills
+        ting.addUse(query.value(2).toInt()); // itemUses
         items.push_back(ting);
     }
     for (int i = 0; i < items.size(); ++i){ // Add each item to entity
