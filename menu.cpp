@@ -130,8 +130,8 @@ void Menu::saveMenu(Character& player){
     while (menuActive){
         std::cout << "----------Save menu----------\n";
         std::vector<Character> saves = db.getCharacters();
-        for (int i = 0; i < saves.size(); ++i){ // Display all saves
-            std::cout << i << ": " << saves[i].getName() << "\n";
+        for (int i = 1; i <= saves.size(); ++i){ // Display all saves
+            std::cout << i << ": " << saves[i-1].getName() << "\n";
         }
         std::cout << saves.size()+1 << ": New save\n";
         std::cout << 0 << ": Quit menu\n" + lineSeperator;

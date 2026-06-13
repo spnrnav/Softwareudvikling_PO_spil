@@ -172,22 +172,22 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
                   "WHERE characterId = (?)");*/
     command = "UPDATE Character ";
     //query.addBindValue(QString::fromStdString(karakter.getName())); // characterName
-    command += "SET characterName = " + karakter.getName(); // characterName
+    command += "SET name = '" + karakter.getName() + "', "; // characterName
     //query.addBindValue(karakter.getKillCount()); // totalKillCount
-    command += "SET totalKillCount = " + std::to_string(karakter.getKillCount()); // totalKillCount
+    command += "totalKillCount = " + std::to_string(karakter.getKillCount()) + ", "; // totalKillCount
     //query.addBindValue(QString::fromStdString(karakter.getMostUsedItem())); // itemMostUsed
-    command += "SET itemMostUsed = " + karakter.getMostUsedItem(); // itemMostUsed
+    command += "itemMostUsed = '" + karakter.getMostUsedItem() + "', "; // itemMostUsed
     //query.addBindValue(QString::fromStdString(karakter.getMostUsedEntity())); // entityMostUsed
-    command += "SET entityMostUsed = " + karakter.getMostUsedEntity(); // entityMostUsed
+    command += "entityMostUsed = '" + karakter.getMostUsedEntity() + "' "; // entityMostUsed
     //query.addBindValue(charID); // characterId
-    command += "WHERE characterId = " + std::to_string(charID) + ");"; // characterId
+    command += "WHERE characterId = " + std::to_string(charID) + ";"; // characterId
     //qDebug << query.exec();
     //query.exec();
     execute(command);
 
     // Remove monster items
     command = "DELETE FROM EntItem WHERE entityId = (SELECT entityId FROM Entity WHERE characterId = ";
-    command += std::to_string(charID) + "AND entityId = ";
+    command += std::to_string(charID) + " AND entityId = ";
     for (int i = 1; i < 9; ++i){
         std::string newCommand = command + std::to_string(i) + ");";
         execute(newCommand);
