@@ -279,14 +279,14 @@ std::vector<Character> DatabaseComs::getCharacters(){
     std::vector<int> charIds;
     std::vector<std::string> charNames;
     std::vector<int> killCounts;
-    query.exec();
-    while(query.next()){
-        charIds.push_back(query.value("characterId").toInt());
-        charNames.push_back(query.value("name").toString().toStdString());
-        killCounts.push_back(query.value("totalKillCount").toInt());
+    query.exec(QString::fromStdString(command));
+    while(query.next()){ // extract data
+        charIds.push_back(query.value(0).toInt()); // characterId
+        charNames.push_back(query.value(1).toString().toStdString()); // name
+        killCounts.push_back(query.value(2).toInt()); // totalKillCount
     }
     std::vector<Character> charList;
-    for (int i = 0; i < charIds.size(); ++i){
+    for (int i = 0; i < charIds.size(); ++i){ // build characters
         charList.push_back(Character(charNames[i]));
         charList[i].addKill(killCounts[i]);
         assignItemsToChars(charList, charIds); // Needs testing
