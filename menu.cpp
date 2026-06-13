@@ -35,7 +35,7 @@ void Menu::main(){
             sub(player);
         }
         else if (inputInt == 2){ // Load Character (implement later)
-            std::cout << "action2\n";
+            loadMenu();
         }
         else if (inputInt == 3){ // Quit game
             menuActive = false;
@@ -43,6 +43,27 @@ void Menu::main(){
         else{
             std::cout << "Invallid input\n";
         }
+    }
+}
+
+void Menu::loadMenu(){
+    bool menuActive = true;
+    while (menuActive){
+        std::cout << "----------Save menu----------\n";
+        std::vector<Character> saves = db.getCharacters();
+        for (int i = 1; i <= saves.size(); ++i){ // Display all saves
+            std::cout << i << ": " << saves[i-1].getName() << "\n";
+        }
+        std::cout << 0 << ": Quit menu\n" + lineSeperator;
+        std::cout << "Choose save to load: ";
+        getIntInput();
+        if ((saves.size() != 0) and (inputInt > 0) and (inputInt <= saves.size())){
+            sub(saves[inputInt-1]);
+        }
+        else if (saves.size() == 0){
+            cout << "No Saves Detected\n" + lineSeperator;
+        }
+        break;
     }
 }
 

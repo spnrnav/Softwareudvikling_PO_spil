@@ -14,6 +14,7 @@ public:
     void main();
     void sub(Character&);
     void manage(Character&);
+    void loadMenu();
     void saveMenu(Character&);
     void combat(Character&);
     void caveCombat(Character&);
