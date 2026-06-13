@@ -291,9 +291,9 @@ std::vector<Character> DatabaseComs::getCharacters(){
         newChar.setName(charNames[i]); // Set name for character
         charList.push_back(newChar); // Add new character to list
         charList[i].addKill(killCounts[i]);
-        assignItemsToChars(charList, charIds); // Add items to character // Needs testing
-        assignEntities(charList, charIds); // Add allies to character // Needs testing
     }
+    assignItemsToChars(charList, charIds); // Add items to character // Needs testing
+    assignEntities(charList, charIds); // Add allies to character // Needs testing
     // TODO: Add entities to characters
     return charList;
 }
