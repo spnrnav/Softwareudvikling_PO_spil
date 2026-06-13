@@ -304,12 +304,12 @@ void DatabaseComs::assignItemsToChars(std::vector<Character>& charList, std::vec
     for (int i = 0; i < charIdList.size(); ++i){
         std::vector<int> itemIdx;
         std::string command = "SELECT itemIdx FROM CharItem WHERE characterId = " + std::to_string(charIdList[i]);
-        query.exec();
+        query.exec(QString::fromStdString(command));
         while(query.next()){
-            itemIdx.push_back(query.value("itemIdx").toInt());
+            itemIdx.push_back(query.value(0).toInt()); // itemIdx
         }
         for (int j = 0; j < itemIdx.size(); ++j){
-            charList[i].addItem(il.list[j]);
+            charList[i].addItem(il.list[itemIdx[j]]);
         }
     }
 }
@@ -321,13 +321,13 @@ void DatabaseComs::assignEntities(std::vector<Character>& charList, std::vector<
         std::vector<int> entityIdx;
         std::vector<int> entId;
         std::string command = "SELECT entityIdx, entityId FROM Entity WHERE characterId = " + std::to_string(charIdList[i]);
-        query.exec();
+        query.exec(QString::fromStdString(command));
         while(query.next()){
             entityIdx.push_back(query.value(0).toInt()); // entityIdx
             entId.push_back(query.value(1).toInt()); // entityId
         }
         for (int j = 0; j < entityIdx.size(); ++j){ // Run through each entityId
-            Entity monster = el.list[j];
+            Entity monster = el.list[entityIdx[j]];
             assignItemsToEnt(monster, entId[j]);
             charList[i].addMonster(monster); // Add entity to character
         }
@@ -339,7 +339,7 @@ void DatabaseComs::assignItemsToEnt(Entity& ent, int entId){ // Needs testing
     std::string command = "SELECT itemIdx, itemKills, itemUses FROM EntItem WHERE entityId = " + std::to_string(entId);
     std::vector<Item> items;
     ItemList il;
-    query.exec();
+    query.exec(QString::fromStdString(command));
     while(query.next()){
         Item ting = il.list[query.value(0).toInt()]; // itemIdx
         ting.addKill(query.value(1).toInt()); // itemKills
