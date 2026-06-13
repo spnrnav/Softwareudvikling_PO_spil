@@ -46,7 +46,7 @@ void Combat::resolveStatus(Entity& creature){
         else if (statusList[i] == "Block"){
             creature.addBlock(1); // blocks up to 1 incoming dmg, when the creature wold take damage next (can stack)
         }
-        else if (statusList[i] == "Posion"){
+        else if (statusList[i] == "Poison"){
             creature.dealDmg(1); // deal 1 dmg each turn (can stack)
         }
         else if (statusList[i] == "Explode"){
