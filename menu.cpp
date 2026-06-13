@@ -61,7 +61,7 @@ void Menu::loadMenu(){
             sub(saves[inputInt-1]);
         }
         else if (saves.size() == 0){
-            cout << "No Saves Detected\n" + lineSeperator;
+            std::cout << "No Saves Detected\n" + lineSeperator;
         }
         break;
     }
