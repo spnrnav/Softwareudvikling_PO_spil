@@ -329,7 +329,7 @@ void DatabaseComs::assignEntities(std::vector<Character>& charList, std::vector<
         for (int j = 0; j < entityIdx.size(); ++j){ // Run through each entityId
             Entity monster = el.list[entityIdx[j]];
             assignItemsToEnt(monster, entId[j]);
-            charList[i].addMonster(monster); // Add entity to character
+            charList[i].addMonster(monster,true); // Add entity to character
         }
     }
 }

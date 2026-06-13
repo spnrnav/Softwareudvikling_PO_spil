@@ -14,15 +14,15 @@ Character::Character(std::string characterName){
 
 
 bool Character::collectionLimit(){
-    return ((collection.size() < 4) || (collection.empty())); // True -> collection clear for addition, False -> collection limit reached
+    return (collection.size() < 4); // True -> collection clear for addition, False -> collection limit reached
 }
 
 std::string Character::getName(){
     return name;
 }
 
-void Character::addMonster(Entity monster){
-    if (collectionLimit()){
+void Character::addMonster(Entity monster, bool dev){
+    if ((collectionLimit()) || (dev)){
         collection.push_back(monster);
     }
     else {

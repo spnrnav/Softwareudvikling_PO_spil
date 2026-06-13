@@ -12,7 +12,7 @@ public:
     void setName(std::string newName){name = newName;}
     std::string getName();
     bool collectionLimit();
-    void addMonster(Entity);
+    void addMonster(Entity, bool dev = false);
     void removeMonster(int);
     void replaceMonster(Entity, int);
     std::vector<Entity> collection;
