@@ -84,10 +84,6 @@ void DatabaseComs::createTables(){
     execute(charItem);
 }
 
-void DatabaseComs::saveCharacter(Character& karakter){
-    int i = 0;
-}
-
 void DatabaseComs::addSave(Character& karakter){
     std::string command;
 
@@ -349,15 +345,4 @@ void DatabaseComs::assignItemsToEnt(Entity& ent, int entId){ // Needs testing
     for (int i = 0; i < items.size(); ++i){ // Add each item to entity
         ent.equipItem(items[i]);
     }
-}
-
-int DatabaseComs::getMaxCharId(){
-    QSqlQuery query;
-    std::string command = "SELECT MAX(characterId) FROM Character";
-    int id = -1;
-    query.exec();
-    while(query.next()){
-        int id = query.value(0).toInt();
-    }
-    return id;
 }
