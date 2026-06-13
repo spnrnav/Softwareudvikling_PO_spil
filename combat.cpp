@@ -8,7 +8,7 @@ Combat::Combat() {
 }
 
 int Combat::generateRandomInt(int highBound, int lowBound){
-    return (rand() % highBound + lowBound);
+    return (rand() % (highBound - lowBound) + lowBound);
 }
 
 void Combat::getIntInput(){
