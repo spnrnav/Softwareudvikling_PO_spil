@@ -56,7 +56,7 @@ void DatabaseComs::createTables(){
         "entityId   INTEGER,"
         "characterId	INTEGER,"
         "entityIdx	INTEGER,"
-        "entUses    INTEGER,"
+        "entityUses    INTEGER,"
         "PRIMARY KEY(entityId),"
         "FOREIGN KEY(characterId) REFERENCES Character(characterId)"
         ");";
@@ -100,7 +100,7 @@ void DatabaseComs::addSave(Character& karakter){
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
         command = "INSERT INTO Entity "
-                  "(characterId, entityIdx, entUses) "
+                  "(characterId, entityIdx, entityUses) "
                   "VALUES (";
         command += std::to_string(charIdx) + ", "; // characterId
         int entIdx;
@@ -178,7 +178,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
     EntityList el;
     ItemList il;
     for (int i = 0; i < karakter.collection.size(); ++i){
-        command = "INSERT INTO Entity (characterId, entityIdx)  VALUES (";
+        command = "INSERT INTO Entity (characterId, entityIdx, entityUses)  VALUES (";
         int entIdx;
         for (int j = 0; j < el.list.size(); ++j){
             if (karakter.collection[i].getName() == el.list[j].getName()){
@@ -186,7 +186,7 @@ void DatabaseComs::updateSave(int charID, Character& karakter){
             }
         }
         command += std::to_string(charID) + ", "; // characterId
-        command += std::to_string(entIdx) + ");"; // entityIdx
+        command += std::to_string(entIdx) + ", "; // entityIdx
         command += std::to_string(karakter.collection[i].getUses()) + ");"; // entUses
         int entId = execute(command);
 
@@ -268,11 +268,13 @@ void DatabaseComs::assignEntities(std::vector<Character>& charList, std::vector<
     for (int i = 0; i < charIdList.size(); ++i){ // Run through each characterId
         std::vector<int> entityIdx;
         std::vector<int> entId;
-        std::string command = "SELECT entityIdx, entityId FROM Entity WHERE characterId = " + std::to_string(charIdList[i]);
+        std::vector<int> entUses;
+        std::string command = "SELECT entityIdx, entityId, entUses FROM Entity WHERE characterId = " + std::to_string(charIdList[i]);
         query.exec(QString::fromStdString(command));
         while(query.next()){
             entityIdx.push_back(query.value(0).toInt()); // entityIdx
             entId.push_back(query.value(1).toInt()); // entityId
+            entUses.push_back(query.value(2).toInt()); // entityUses
         }
         for (int j = 0; j < entityIdx.size(); ++j){ // Run through each entityId
             Entity monster = el.list[entityIdx[j]];
