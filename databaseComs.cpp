@@ -16,7 +16,7 @@ DatabaseComs::DatabaseComs(std::string n) {
     	//std::cout << "Database opened\n";
     }
     else{
-	std::cout << "Database failed to open\n";
+	    std::cout << "Database failed to open\n";
     }
     createTables();
 }
