@@ -34,7 +34,7 @@ void Menu::main(){
             std::cout << "Character \"" + inputStr + "\" created\n";
             sub(player);
         }
-        else if (inputInt == 2){ // Load Character (implement later)
+        else if (inputInt == 2){ // Load Character
             loadMenu();
         }
         else if (inputInt == 3){ // Quit game
@@ -90,10 +90,10 @@ void Menu::sub(Character& character){
         else if (inputInt == 3){ // Manage monsters
             manage(character);
         }
-        else if (inputInt == 4){
+        else if (inputInt == 4){ // Show stats
             displayStatistics(character);
         }
-        else if (inputInt == 5){
+        else if (inputInt == 5){ // Save character
             saveMenu(character);
         }
         else if (inputInt == 6){ // Quit sub menu

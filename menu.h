@@ -3,7 +3,6 @@
 #include "character.h"
 #include <iostream>
 #include "databaseComs.h"
-//#include "enemylist.h"
 
 class Menu
 {
